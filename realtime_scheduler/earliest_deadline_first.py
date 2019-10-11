@@ -1,4 +1,4 @@
-# rate monotonic is for giving weekly goals to be scheduled 
+#earliest deadline first for scheduling tasks with a deadline 
 
 class Process:
 	def __init__(self,process_id,capacity, period = 24, arrival_time = 0, deadline=None):
@@ -13,10 +13,10 @@ class Scheduler:
 	def schedule(self,list_process):
 		pass
 
-class RM_Scheduler(Scheduler):
+class EDF_Scheduler(Scheduler):
 	def schedule(self,list_process, available_slots):
 		list_process.sort(key = lambda x: x.period)
-		list_process.sort(key = lambda x: x.capacity)
+		list_process.sort(key = lambda x: x.deadline)
 
 		# for x in list_process:
 			# print(x.id, x.capacity, x.period)
@@ -52,13 +52,12 @@ class RM_Scheduler(Scheduler):
 		return schedule
 		# return week_schedule
 
-
-obj = RM_Scheduler()
-process1 = Process(1,2)
-process2 = Process(2,2)
-process3 = Process(3,3)
-# slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
-slots = [1,1,2,1]
+obj = EDF_Scheduler()
+process1 = Process(1,2, deadline = 5)
+process2 = Process(2,2, deadline = 20)
+process3 = Process(3,3, deadline = 10)
+slots = [1,1,2,1,2]
 list_process = [process1, process2, process3]
-final_schedule = obj.schedule(list_process, slots)
-print(final_schedule)
+schedule = obj.schedule(list_process, slots)
+print(schedule)
+
