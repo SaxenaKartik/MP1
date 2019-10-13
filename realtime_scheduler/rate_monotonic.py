@@ -14,51 +14,51 @@ class Scheduler:
 		pass
 
 class RM_Scheduler(Scheduler):
-	def schedule(self,list_process, available_slots):
+	def schedule(self,list_process, total_slots):
 		list_process.sort(key = lambda x: x.period)
 		list_process.sort(key = lambda x: x.capacity)
 
 		# for x in list_process:
-			# print(x.id, x.capacity, x.period)
-		# week_schedule = []
+		# 	print(x.id, x.capacity, x.period)
+		week_schedule = []
 		sum_slots = 0
-		# for available_slots in total_slots:
-		for i in available_slots:
-			sum_slots+=i
+		for available_slots in total_slots:
+			for i in available_slots:
+				sum_slots+=i
 
-		schedule = []
+			schedule = []
 
-		for p in list_process:
-			capacity = p.capacity
-			process_id = p.process_id
-			if sum_slots>0 and sum_slots>=capacity:
-				sum_slots-=capacity
-				while capacity>0:
-					schedule.append(process_id)
-					capacity-=1
-				# capacity = 0
+			for p in list_process:
+				capacity = p.capacity
+				process_id = p.process_id
+				if sum_slots>0 and sum_slots>=capacity:
+					sum_slots-=capacity
+					while capacity>0:
+						schedule.append(process_id)
+						capacity-=1
+					# capacity = 0
 
 
-			elif sum_slots>0 and sum_slots<capacity:
-				capacity -= sum_slots
-				while sum_slots>0:
-					schedule.append(process_id)
-					sum_slots -= 1
+				elif sum_slots>0 and sum_slots<capacity:
+					capacity -= sum_slots
+					while sum_slots>0:
+						schedule.append(process_id)
+						sum_slots -= 1
 
-			if sum_slots==0:
-				break
+				if sum_slots==0:
+					break
 
-		# week_schedule.append(schedule)
-		return schedule
-		# return week_schedule
+			week_schedule.append(schedule)
+		#return schedule
+		return week_schedule
 
 
 obj = RM_Scheduler()
 process1 = Process(1,2)
 process2 = Process(2,2)
 process3 = Process(3,3)
-# slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
-slots = [1,1,2,1]
+slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
+# slots = [1,1,2,1]
 list_process = [process1, process2, process3]
 final_schedule = obj.schedule(list_process, slots)
 print(final_schedule)
