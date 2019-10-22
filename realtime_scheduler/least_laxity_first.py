@@ -66,7 +66,7 @@ class LLF_Scheduler(Scheduler):
 					sum_slots -= 0.5
 					schedule.append(least_laxity_process.process_id)
 					least_laxity_process.capacity-=1
-					if sum_slots<=0:
+					if sum_slots==0:
 						break
 
 				else:
