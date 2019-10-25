@@ -112,8 +112,8 @@ class MLLF_Scheduler(Scheduler):
 		return week_schedule
 
 obj = MLLF_Scheduler()
-process1 = Process(1,3, period= 7, deadline = 6)
-process2 = Process(2,4, period = 7, deadline = 7)
+process1 = Process(1,3, period= 24, deadline = 6)
+process2 = Process(2,4, period = 24, deadline = 7)
 # process3 = Process(3,3, deadline = 7)
 # slots = [1,1,2,1,1]
 slots = [[1,1,2,1,1],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
