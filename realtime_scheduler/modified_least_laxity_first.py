@@ -53,7 +53,7 @@ class MLLF_Scheduler(Scheduler):
 					 	 least_exec_amongst_least_laxity_process = p
 					 	 least_exec_time = p.capacity
 
-				print(least_exec_time, least_exec_amongst_least_laxity_process, least_deadline, least_deadline_but_not_least_laxity_process)
+				# print(least_exec_time, least_exec_amongst_least_laxity_process, least_deadline, least_deadline_but_not_least_laxity_process)
 				# break
 
 				# print(i, least_laxity, least_laxity_process.process_id, least_laxity_process.capacity)
@@ -88,8 +88,8 @@ class MLLF_Scheduler(Scheduler):
 		return week_schedule
 
 obj = MLLF_Scheduler()
-process1 = Process(1,3, period= 24, deadline = 6)
-process2 = Process(2,4, period = 24, deadline = 7)
+process1 = Process(1,3, deadline = 6)
+process2 = Process(2,4, deadline = 7)
 # process3 = Process(3,3, deadline = 7)
 # slots = [1,1,2,1,1]
 slots = [[1,1,2,1,1],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
