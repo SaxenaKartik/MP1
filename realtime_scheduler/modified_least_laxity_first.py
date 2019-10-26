@@ -53,7 +53,8 @@ class MLLF_Scheduler(Scheduler):
 					 	 least_exec_amongst_least_laxity_process = p
 					 	 least_exec_time = p.capacity
 
-				# print(least_exec_time, least_exec_amongst_least_laxity_process, least_deadline, least_deadline_but_not_least_laxity_process)
+				if least_exec_amongst_least_laxity_process!=None and least_deadline_but_not_least_laxity_process!=None:
+					print(least_exec_time, least_exec_amongst_least_laxity_process.process_id, least_deadline, least_deadline_but_not_least_laxity_process.process_id)
 				# break
 
 				# print(i, least_laxity, least_laxity_process.process_id, least_laxity_process.capacity)
@@ -62,23 +63,25 @@ class MLLF_Scheduler(Scheduler):
 				
 				if least_deadline_but_not_least_laxity_process!=None and least_exec_amongst_least_laxity_process!=None and least_exec_amongst_least_laxity_process.deadline<=least_deadline_but_not_least_laxity_process.deadline:
 					i+=least_exec_amongst_least_laxity_process.capacity
-					while least_exec_amongst_least_laxity_process.capacity and sum_slots:
+					while least_exec_amongst_least_laxity_process.capacity and sum_slots>0:
 						schedule.append(least_exec_amongst_least_laxity_process.process_id)
 						least_exec_amongst_least_laxity_process.capacity-=0.5
 						sum_slots-=0.5
-					# if sum_slots==0:
-					# break
+					if sum_slots==0:
+						break
 
 				elif least_deadline_but_not_least_laxity_process!=None and least_exec_amongst_least_laxity_process!=None and least_exec_amongst_least_laxity_process.deadline>least_deadline_but_not_least_laxity_process.deadline:
 					exec_can = least_deadline_but_not_least_laxity_process.deadline - least_laxity
 					i += exec_can
-					while least_exec_amongst_least_laxity_process.capacity>exec_can and sum_slots:
+					while least_exec_amongst_least_laxity_process.capacity>exec_can and sum_slots>0:
 						schedule.append(least_exec_amongst_least_laxity_process.process_id)
 						least_exec_amongst_least_laxity_process.capacity-=0.5
 						sum_slots-=0.5
-					# if sum_slots==0:
-					# break
+					if sum_slots==0:
+						break
 				else:
+					if sum_slots==0:
+						break
 					i+=1
 				
 				# # i=+1
@@ -89,13 +92,13 @@ class MLLF_Scheduler(Scheduler):
 
 obj = MLLF_Scheduler()
 process1 = Process(1,3, deadline = 6)
-process2 = Process(2,4, deadline = 7)
-# process3 = Process(3,3, deadline = 7)
+process2 = Process(2,2, deadline = 4)
+process3 = Process(3,1, deadline = 7)
 # slots = [1,1,2,1,1]
 slots = [[1,1,2,1,1],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
 # slots = [[1,1,2,1,3]]
 
-list_process = [process1, process2]
+list_process = [process1, process2, process3]
 schedule = obj.schedule(list_process, slots)
 print(schedule)
 
