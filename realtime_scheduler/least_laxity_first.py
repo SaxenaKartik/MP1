@@ -43,24 +43,29 @@ class LLF_Scheduler(Scheduler):
 
 				# print(i, least_laxity, least_laxity_process.process_id, least_laxity_process.capacity)
 				# print(i, least_laxity, least_laxity_process.process_id, least_laxity_process.capacity)
-				
+
 				if least_laxity != math.inf and least_laxity_process!=None:
-					i+=int(least_laxity_process.capacity)
-				
-					if sum_slots>0 and sum_slots>=least_laxity_process.capacity:
-							sum_slots-=least_laxity_process.capacity
-							while least_laxity_process.capacity>0:
-								schedule.append(least_laxity_process.process_id)
-								least_laxity_process.capacity -= 0.5
-							# least_laxity_process.capacity = 0
+					# i+=int(least_laxity_process.capacity)
+
+					# if sum_slots>0 and sum_slots>=least_laxity_process.capacity:
+					# 		sum_slots-=least_laxity_process.capacity
+					# 		while least_laxity_process.capacity>0:
+					# 			schedule.append(least_laxity_process.process_id)
+					# 			least_laxity_process.capacity -= 0.5
+					# 		# least_laxity_process.capacity = 0
 
 
-					elif sum_slots>0 and sum_slots<least_laxity_process.capacity:
-						least_laxity_process.capacity -= sum_slots
-						while sum_slots>0:
-							schedule.append(least_laxity_process.process_id)
-							sum_slots -= 0.5
+					# elif sum_slots>0 and sum_slots<least_laxity_process.capacity:
+					# 	least_laxity_process.capacity -= sum_slots
+					# 	while sum_slots>0:
+					# 		schedule.append(least_laxity_process.process_id)
+					# 		sum_slots -= 0.5
 
+					sum_slots -= 0.5
+					schedule.append(least_laxity_process.process_id)
+					sum_slots -= 0.5
+					schedule.append(least_laxity_process.process_id)
+					least_laxity_process.capacity-=1
 					if sum_slots==0:
 						break
 
@@ -71,9 +76,9 @@ class LLF_Scheduler(Scheduler):
 		return week_schedule
 
 obj = LLF_Scheduler()
-process1 = Process(1,2, deadline = 5)
-process2 = Process(2,2, deadline = 10)
-process3 = Process(3,3, deadline = 20)
+process1 = Process(1,2, deadline = 6)
+process2 = Process(2,2, deadline = 5)
+process3 = Process(3,3, deadline = 7)
 # slots = [1,1,2,1,1]
 slots = [[1,1,2,1,1],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
 # slots = [[1,1,2,1,3]]
