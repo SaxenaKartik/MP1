@@ -59,31 +59,7 @@ class MLLF_Scheduler(Scheduler):
 				# print(i, least_laxity, least_laxity_process.process_id, least_laxity_process.capacity)
 				# print(i, least_laxity, least_laxity_process.process_id, least_laxity_process.capacity)
 
-				# if least_laxity != math.inf and least_laxity_process!=None:
-					# i+=int(least_laxity_process.capacity)
-
-					# if sum_slots>0 and sum_slots>=least_laxity_process.capacity:
-					# 		sum_slots-=least_laxity_process.capacity
-					# 		while least_laxity_process.capacity>0:
-					# 			schedule.append(least_laxity_process.process_id)
-					# 			least_laxity_process.capacity -= 0.5
-					# 		# least_laxity_process.capacity = 0
-
-
-					# elif sum_slots>0 and sum_slots<least_laxity_process.capacity:
-					# 	least_laxity_process.capacity -= sum_slots
-					# 	while sum_slots>0:
-					# 		schedule.append(least_laxity_process.process_id)
-					# 		sum_slots -= 0.5
-
-				# 	sum_slots -= 0.5
-				# 	schedule.append(least_laxity_process.process_id)
-				# 	sum_slots -= 0.5
-				# 	schedule.append(least_laxity_process.process_id)
-				# 	least_laxity_process.capacity-=1
-				# 	if sum_slots==0:
-				# 		break
-
+				
 				if least_deadline_but_not_least_laxity_process!=None and least_exec_amongst_least_laxity_process!=None and least_exec_amongst_least_laxity_process.deadline<=least_deadline_but_not_least_laxity_process.deadline:
 					i+=least_exec_amongst_least_laxity_process.capacity
 					while least_exec_amongst_least_laxity_process.capacity and sum_slots:
