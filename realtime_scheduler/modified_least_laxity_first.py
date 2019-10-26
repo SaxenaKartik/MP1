@@ -84,7 +84,7 @@ class MLLF_Scheduler(Scheduler):
 				# 	if sum_slots==0:
 				# 		break
 
-				if least_deadline_but_not_least_laxity_process!=None and least_exec_amongst_least_laxity_process.deadline<=least_deadline_but_not_least_laxity_process.deadline:
+				if least_deadline_but_not_least_laxity_process!=None and least_exec_amongst_least_laxity_process!=None and least_exec_amongst_least_laxity_process.deadline<=least_deadline_but_not_least_laxity_process.deadline:
 					i+=least_exec_amongst_least_laxity_process.capacity
 					while least_exec_amongst_least_laxity_process.capacity and sum_slots:
 						schedule.append(least_exec_amongst_least_laxity_process.process_id)
@@ -93,7 +93,7 @@ class MLLF_Scheduler(Scheduler):
 					# if sum_slots==0:
 					# break
 
-				elif least_deadline_but_not_least_laxity_process!=None and least_exec_amongst_least_laxity_process.deadline>least_deadline_but_not_least_laxity_process.deadline:
+				elif least_deadline_but_not_least_laxity_process!=None and least_exec_amongst_least_laxity_process!=None and least_exec_amongst_least_laxity_process.deadline>least_deadline_but_not_least_laxity_process.deadline:
 					exec_can = least_deadline_but_not_least_laxity_process.deadline - least_laxity
 					i += exec_can
 					while least_exec_amongst_least_laxity_process.capacity>exec_can and sum_slots:
