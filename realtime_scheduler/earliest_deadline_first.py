@@ -52,13 +52,13 @@ class EDF_Scheduler(Scheduler):
 		# return schedule
 		return week_schedule
 
-obj = EDF_Scheduler()
-process1 = Process(1,2, deadline = 5)
-process2 = Process(2,2, deadline = 20)
-process3 = Process(3,3, deadline = 10)
-# slots = [1,1,2,1,2]
-slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
-list_process = [process1, process2, process3]
-schedule = obj.schedule(list_process, slots)
-print(schedule)
+# obj = EDF_Scheduler()
+# process1 = Process(1,2, deadline = 5)
+# process2 = Process(2,2, deadline = 20)
+# process3 = Process(3,3, deadline = 10)
+# # slots = [1,1,2,1,2]
+# slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
+# list_process = [process1, process2, process3]
+# schedule = obj.schedule(list_process, slots)
+# print(schedule)
 
