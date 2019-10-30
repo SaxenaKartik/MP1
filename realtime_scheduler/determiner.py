@@ -19,7 +19,7 @@ class Determiner:
 
 	def determine(self, process_list):
 		self.process_list = process_list
-		
+		self.decision = RM_Scheduler
 		return self.decision
 
 	def schedule_it(self, total_slots):
