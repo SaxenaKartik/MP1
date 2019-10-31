@@ -17,8 +17,11 @@ class Determiner:
 		self.decision = None
 		self.schedule = None
 
-	def determine(self, process_list):
+	def determine(self, process_list, slots, parameters):
 		self.process_list = process_list
+		self.slots = slots 
+		self.parameters = parameters
+		# take decision based on the process_list, slots and parameters 
 		self.decision = RM_Scheduler
 		return self.decision
 
@@ -33,8 +36,8 @@ class Controller:
 	def __init__(self, determiner, observer):
 		self.determiner = determiner
 		self.observer = observer
-	def determine(self, process_list):
-		self.decision = self.determiner.determine(process_list)
+	def determine(self, process_list, slots, parameters):
+		self.decision = self.determiner.determine(process_list, slots, parameters)
 		# self.observer.output(self.decision)
 	def schedule(self, total_slots):
 		self.total_slots = total_slots
@@ -56,10 +59,11 @@ class cmdView(View):
 		self.controller.determine(self.process_list)
 		self.controller.schedule(self.total_slots)
 
-	def user_input(self, process_list, total_slots):
+	def user_input(self, process_list, total_slots, parameters):
 		self.process_list = process_list
 		self.total_slots = total_slots
-		self.controller.determine(self.process_list)
+		self.parameters = parameters
+		self.controller.determine(self.process_list, self.total_slots, self.parameters)
 		self.controller.schedule(self.total_slots)
 
 class Observer:
@@ -78,8 +82,8 @@ class Machine:
 		self.controller = Controller(self.determiner, self.observer)
 		self.view = cmdView(self.controller)
 
-	def do_something(self, list_process, slots):
-		self.view.user_input(list_process, slots)
+	def call_determiner(self, list_process, slots, parameters):
+		self.view.user_input(list_process, slots, parameters)
 		# print(self.view)
 
 # process1 = Process(1,3, deadline = 6)
@@ -92,4 +96,5 @@ process3 = Process(3,3, deadline = 10)
 slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
 list_process = [process1, process2, process3]
 obj = Machine()
-obj.do_something(list_process, slots)
+parameters = {}
+obj.call_determiner(list_process, slots, parameters)
