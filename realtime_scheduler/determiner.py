@@ -12,6 +12,9 @@ class Process:
 		self.deadline = deadline
 		self.laxity = 0
 
+		# fun or work activity, two fun activities should not be together, two work activites should not be together 
+		# chech for conscutive 4th unit in either of the work and fun tasks and replace the 4h unit with some other task 
+		# that will still meet its deadline even after the swap 
 class Determiner:
 	def __init__(self):
 		self.decision = None
@@ -86,12 +89,12 @@ class Machine:
 		self.view.user_input(list_process, slots, parameters)
 		# print(self.view)
 
-# process1 = Process(1,3, deadline = 6)
-# process2 = Process(2,2, deadline = 4)
-# process3 = Process(3,1, deadline = 7)
-process1 = Process(1,2, deadline = 5)
-process2 = Process(2,2, deadline = 20)
-process3 = Process(3,3, deadline = 10)
+process1 = Process(1,3, deadline = 6)
+process2 = Process(2,2, deadline = 4)
+process3 = Process(3,1, deadline = 7)
+# process1 = Process(1,2, deadline = 5)
+# process2 = Process(2,2, deadline = 20)
+# process3 = Process(3,3, deadline = 10)
 # slots = [1,1,2,1,2]
 slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
 list_process = [process1, process2, process3]
