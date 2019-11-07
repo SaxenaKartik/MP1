@@ -22,6 +22,8 @@ class Process:
 		self.laxity = 0
 		self.type = type_process
 		self.optional = False
+		self.start_timing_flag = False
+		self.start_timing = 0 
 		# fun or work activity, two fun activities should not be together, two work activites should not be together 
 		# chech for conscutive nth unit in either of the work and fun tasks and replace the 4h unit with some other task 
 		# that will still meet its deadline even after the swap 
@@ -86,7 +88,7 @@ class Determiner:
 		self.total_slots = total_slots
 		self.schedule = None
 		
-		for available_slots in total_slots:
+		# for available_slots in total_slots:
 
 		scheduler = self.decision
 		obj = scheduler()
@@ -163,6 +165,7 @@ process4 = Process(4,3, deadline = 10)
 # slots = [1,1,2,1,2]
 slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
 list_process = [process1, process2, process3, process4]
+print(list_process)
 obj = Machine()
 
 # fetch the prime flag (priority, priority_list, preference, preference_list, fragmented, fragmented_range, statistics ) from database
