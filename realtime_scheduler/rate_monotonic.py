@@ -21,11 +21,8 @@ class RM_Scheduler(Scheduler):
 		# for x in list_process:
 			# print(x.id, x.capacity, x.period)
 		week_schedule = []
-		for available_slots in total_slots:
-			sum_slots = 0
-			for i in available_slots:
-				sum_slots+=i
-
+		for available_slot in total_slots:
+			sum_slots = sum(total_slots[available_slot])
 			schedule = []
 
 			for p in list_process:
