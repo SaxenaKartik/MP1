@@ -9,7 +9,6 @@ from modified_least_laxity_first import MLLF_Scheduler
 
 
 # day = datetime.datetime.today().weekday()
-# day = 5
 # day = day if day == 7 else 7-day
 
 class Process:
@@ -171,6 +170,8 @@ obj = Machine()
 # fetch the prime flag (priority, priority_list, preference, preference_list, fragmented, fragmented_range, statistics ) from database
 
 parameters = {'user_priority_flag' : False, 'user_priority_list' : [], 'optional_task_flag' : False, 'optional_task_list' : [], 'deadline_flag' : False, 'user_preference_flag' : False, 'user_preference_list' : {}, 'fragmented_flag' : False, 'fragmented_range' : 0, 'statistics' : []}
+
+week_parameters = []
 
 user_priority_flag = input('Do you want user priority? Y/N ')
 if user_priority_flag == 'Y':
