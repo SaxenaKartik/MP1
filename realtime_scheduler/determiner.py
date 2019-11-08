@@ -8,7 +8,7 @@ from least_laxity_first import LLF_Scheduler
 from modified_least_laxity_first import MLLF_Scheduler
 
 
-# day = datetime.datetime.today().weekday()
+day = datetime.datetime.today().weekday()
 # day = day if day == 7 else 7-day
 
 class Process:
@@ -32,8 +32,12 @@ class Determiner:
 		# self.decision = []
 		self.schedule = None
 
-	def determine(self, process_list, slots, parameters):
+	def determine(self, week_process_list, slots, week_parameters):
 		# self.process_list = copy.deepcopy(process_list)
+		process_list = week_process_list[day+1]
+		# print(process_list)
+		parameters = week_parameters[day+1]
+		# print(parameters)
 		self.process_list = []
 		self.slots = slots 
 		self.parameters = parameters
@@ -84,6 +88,7 @@ class Determiner:
 
 
 	def schedule_it(self, total_slots):
+		# print(self.decision)
 		self.total_slots = total_slots
 		self.schedule = None
 		
@@ -156,22 +161,68 @@ class Machine:
 # process1 = Process(1,3, deadline = 6)
 # process2 = Process(2,2, deadline = 4)
 # process3 = Process(3,1, deadline = 7)
+
+# fetch list_process from database 
+
 process1 = Process(1,2, deadline = 5, type_process = 'fun')
 process2 = Process(2,2, deadline = 24, type_process = 'fun')
 process3 = Process(3,3, deadline = 10)
 process4 = Process(4,3, deadline = 10)
 
-# slots = [1,1,2,1,2]
-slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
 list_process = [process1, process2, process3, process4]
-print(list_process)
-obj = Machine()
 
-# fetch the prime flag (priority, priority_list, preference, preference_list, fragmented, fragmented_range, statistics ) from database
+slots = {1 : [], 2: [], 3:[], 4 : [], 5 : [], 6 : [], 7 : []}
+
+# fetch slots from the database 
+
+slots = {
+	1 : [1,1,2,1,3],
+	2 : [.5, 1, 2.5, 1.5, 2], 
+	3 : [1.5,1.5,1.5,1.5], 
+	4 : [2,3,1], 
+	5 : [1,1], 
+	6 : [6], 
+	7 : [7]
+}
+
+
+week_list_process = {1 : [], 2: [], 3:[], 4 : [], 5 : [], 6 : [], 7 : []}
+
+# fetch list process of this week from database and append the changes to list using user input 
+
+
+
+# week_list_process = {
+# 	1 : [process1, process2, process3, process4],
+# 	2 : [process1, process2, process3, process4],
+# 	3 : [process1, process2, process3, process4],
+# 	4 : [process1, process2, process3, process4],
+# 	5 : [process1, process2, process3, process4],
+# 	6 : [process1, process2, process3, process4],
+# 	7 : [process1, process2, process3, process4]
+# }
+
+
+# print(list_process)
+
+obj = Machine()
 
 parameters = {'user_priority_flag' : False, 'user_priority_list' : [], 'optional_task_flag' : False, 'optional_task_list' : [], 'deadline_flag' : False, 'user_preference_flag' : False, 'user_preference_list' : {}, 'fragmented_flag' : False, 'fragmented_range' : 0, 'statistics' : []}
 
-week_parameters = []
+# fetch the prime flag (priority, priority_list, preference, preference_list, fragmented, fragmented_range, statistics ) from database
+
+week_parameters = {1 : {}, 2: {}, 3:{}, 4 : {}, 5 : {}, 6 : {}, 7 : {}}
+# week_parameters = {
+# 	1 : parameters,
+# 	2 : parameters,
+# 	3 : parameters,
+# 	4 : parameters,
+# 	5 : parameters,
+# 	6 : parameters,
+# 	7 : parameters
+# }
+
+
 
 user_priority_flag = input('Do you want user priority? Y/N ')
 if user_priority_flag == 'Y':
@@ -192,8 +243,8 @@ if min_deadline<24:
 
 for available_slots in slots:
 	sum_slots = 0
-	for slot in available_slots:
-		sum_slots += slot
+	# for slot in available_slots:
+	sum_slots += sum(slots[available_slots])
 	if sum_slots<sum_capacity:
 		parameters['user_optional_flag'] = True
 
@@ -221,4 +272,18 @@ if parameters['user_preference_flag']:
 
 # print(parameters)
 
-obj.call_determiner(list_process, slots, parameters)
+# print(day)
+
+for i in range(day+1, 8):
+	week_list_process[i] = list_process
+
+# print(week_list_process)
+
+
+
+for i in range(day+1, 8):
+	week_parameters[i] = parameters
+
+# print(week_parameters)
+
+obj.call_determiner(week_list_process, slots, week_parameters)
