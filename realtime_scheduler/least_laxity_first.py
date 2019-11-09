@@ -20,9 +20,10 @@ class LLF_Scheduler(Scheduler):
 		copy_list_process = copy.deepcopy(list_process)
 		for available_slot in total_slots:
 			max_period = 0
-			sum_slots = 0
-			for i in available_slot:
-				sum_slots+=i
+			sum_slots = sum(total_slots[available_slot])
+			# for i in available_slot:
+			# 	sum_slots+=i
+
 
 			list_process = copy.deepcopy(copy_list_process)
 			schedule = []
