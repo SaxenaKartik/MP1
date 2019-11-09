@@ -21,9 +21,7 @@ class MLLF_Scheduler(Scheduler):
 		week_schedule = []
 		copy_list_process = copy.deepcopy(list_process)
 		for available_slot in total_slots:
-			sum_slots = 0
-			for i in available_slot:
-				sum_slots+=i
+			sum_slots = sum(total_slots[available_slot])
 
 			# print(sum_slots)
 			list_process = copy.deepcopy(copy_list_process)
