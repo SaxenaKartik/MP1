@@ -1,0 +1,51 @@
+User
+
+id
+username
+email
+password
+efficiency 
+
+User_Schedule
+
+id
+user_id
+process_list
+slots
+parameters
+algo
+schedule
+efficiency
+day
+week
+timestamp
+
+
+Process
+
+id
+capacity
+period
+arrival_time
+deadline
+type
+optional
+start_timing_flag
+start_timing
+
+
+/user - GET
+/user/login - GET and POST
+/user/logout - POST 
+/user/signup	- GET and POST 
+/process - GET and POST
+/process/process_id - GET and POST
+/schedule - GET
+/schedule/user_id - GET and POST
+/schedule/user_id/week - GET and POST
+/schedule/user_id/week/day - GET and POST
+/schedule/user_id/efficiency - GET and POST
+/schedule/user_id/efficiency/week - GET and POST
+/schedule/user_id/efficiency/week/day - GET and POST 
+
+

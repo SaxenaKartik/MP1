@@ -16,13 +16,14 @@ class Scheduler:
 
 class LLF_Scheduler(Scheduler):
 	def schedule(self,list_process,total_slots):
-		max_period = 0
-		sum_slots = 0
 		week_schedule = []
 		copy_list_process = copy.deepcopy(list_process)
 		for available_slot in total_slots:
-			for i in available_slot:
-				sum_slots+=i
+			max_period = 0
+			sum_slots = sum(total_slots[available_slot])
+			# for i in available_slot:
+			# 	sum_slots+=i
+
 
 			list_process = copy.deepcopy(copy_list_process)
 			schedule = []
@@ -61,13 +62,16 @@ class LLF_Scheduler(Scheduler):
 					# 		schedule.append(least_laxity_process.process_id)
 					# 		sum_slots -= 0.5
 
-					sum_slots -= 0.5
-					schedule.append(least_laxity_process.process_id)
-					sum_slots -= 0.5
-					schedule.append(least_laxity_process.process_id)
-					least_laxity_process.capacity-=1
-					if sum_slots==0:
+					if sum_slots>0:
+						sum_slots -= 0.5
+						schedule.append(least_laxity_process.process_id)
+						sum_slots -= 0.5
+						schedule.append(least_laxity_process.process_id)
+						least_laxity_process.capacity-=1
+					else:
 						break
+					# if sum_slots==0:
+						# break
 
 				else:
 					i+=1
@@ -75,15 +79,18 @@ class LLF_Scheduler(Scheduler):
 			week_schedule.append(schedule)
 		return week_schedule
 
-obj = LLF_Scheduler()
-process1 = Process(1,2, deadline = 6)
-process2 = Process(2,2, deadline = 5)
-process3 = Process(3,3, deadline = 7)
-# slots = [1,1,2,1,1]
-slots = [[1,1,2,1,1],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
-# slots = [[1,1,2,1,3]]
+# obj = LLF_Scheduler()
+# # process1 = Process(1,2, deadline = 6)
+# # process2 = Process(2,2, deadline = 5)
+# # process3 = Process(3,3, deadline = 7)
+# process1 = Process(1,3, deadline = 6)
+# process2 = Process(2,5, deadline = 7)
+# process3 = Process(3,2, deadline = 7)
+# # slots = [1,1,2,1,1]
+# slots = [[1,1,2,1,1],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
+# # slots = [[1,1,2,1,3]]
 
-list_process = [process1, process2, process3]
-schedule = obj.schedule(list_process, slots)
-print(schedule)
+# list_process = [process1, process2, process3]
+# schedule = obj.schedule(list_process, slots)
+# print(schedule)
 

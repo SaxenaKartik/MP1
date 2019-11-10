@@ -1,4 +1,4 @@
-# earliest deadline first for scheduling tasks with a deadline 
+# rate monotonic is for giving weekly goals to be scheduled 
 
 class Process:
 	def __init__(self,process_id,capacity, period = 24, arrival_time = 0, deadline=24):
@@ -13,10 +13,10 @@ class Scheduler:
 	def schedule(self,list_process):
 		pass
 
-class EDF_Scheduler(Scheduler):
+class RMU_Scheduler(Scheduler):
 	def schedule(self,list_process, total_slots):
-		list_process.sort(key = lambda x: x.period)
-		list_process.sort(key = lambda x: x.deadline)
+		# list_process.sort(key = lambda x: x.period)
+		# list_process.sort(key = lambda x: x.capacity)
 
 		# for x in list_process:
 			# print(x.id, x.capacity, x.period)
@@ -46,16 +46,16 @@ class EDF_Scheduler(Scheduler):
 					break
 
 			week_schedule.append(schedule)
-		# return schedule
+			# return schedule
 		return week_schedule
 
-# obj = EDF_Scheduler()
-# process1 = Process(1,2, deadline = 5)
-# process2 = Process(2,2, deadline = 20)
-# process3 = Process(3,3, deadline = 10)
-# # slots = [1,1,2,1,2]
-# slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
-# list_process = [process1, process2, process3]
-# schedule = obj.schedule(list_process, slots)
-# print(schedule)
 
+# obj = RM_Scheduler()
+# process1 = Process(1,2)
+# process2 = Process(2,2)
+# process3 = Process(3,3)
+# slots = [[1,1,2,1,3],[.5, 1, 2.5, 1.5, 2], [1.5,1.5,1.5,1.5], [2,3,1], [1,1], [6], [7]]
+# # slots = [1,1,2,1]
+# list_process = [process1, process2, process3]
+# final_schedule = obj.schedule(list_process, slots)
+# print(final_schedule)

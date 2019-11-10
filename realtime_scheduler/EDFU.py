@@ -13,10 +13,10 @@ class Scheduler:
 	def schedule(self,list_process):
 		pass
 
-class EDF_Scheduler(Scheduler):
+class EDFU_Scheduler(Scheduler):
 	def schedule(self,list_process, total_slots):
-		list_process.sort(key = lambda x: x.period)
-		list_process.sort(key = lambda x: x.deadline)
+		# list_process.sort(key = lambda x: x.period)
+		# list_process.sort(key = lambda x: x.deadline)
 
 		# for x in list_process:
 			# print(x.id, x.capacity, x.period)
