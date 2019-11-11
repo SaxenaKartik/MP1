@@ -67,8 +67,8 @@ user login/signup(GET and POST) -> efficiency (GET request total_efficiency/day_
 2. efficiency (GET request total_efficiency/day_efficiency/week_efficiency ki) 
 3. add slots to the database(POST/ purane slots GET)
 4. add task (dikhenge purane tasks GET/ POST)
-4.1 select the tasks to be scheduled
 5. show parameters for the user(POST/ purane parameters GET)
+5.1 select tasks to be scheduled
 6. make schedule button (POST request)
 7. schedule for the rest of the week( GET schedule for the rest of the week)
 8. task finish (POST request for tasks completed, updating efficiency of day, week and total/ GET remaining tasks)
@@ -97,7 +97,6 @@ SLOTS
 id 
 user_id
 slots (dictionary)
-efficiency 
 
 PROCESS 
 
@@ -121,9 +120,9 @@ SCHEDULE
 
 id
 user_id 
-slots
+slot_id
 list_process (process, status, percentage)
-parameters 
+parameter_id 
 algo 
 schedule
 week 
@@ -132,3 +131,23 @@ efficiency
 
 
 
+/user - GET -- done
+/user/user_id - GET -- done
+/user/login - GET and POST
+/user/logout - POST
+/user/signup - GET and POST 
+/process - GET and POST -- done
+/process/<process_id> - GET -- done
+/process/<user_id> - GET and POST -- not required
+/process/<user_id>/<process_id> - GET -- not required
+/efficiency/<user_id> - GET -- done
+/efficiency/<user_id>/<day> - GET -- not required
+/efficiency/<user_id>/<week> - GET -- not required
+/slot/<user_id> - GET and POST
+/parameters/<user_id> - GET and POST
+/schedule/<user_id>/<slot_id>/<parameter_id>/<list_process> - GET and POST
+
+
+
+
+make an entry in the efficiency table at the time of user registration 
