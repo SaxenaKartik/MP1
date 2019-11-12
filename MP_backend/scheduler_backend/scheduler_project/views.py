@@ -1,47 +1,90 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Process, Efficiency
+from django.contrib.auth.models import User
+from .forms import ProcessForm 
+from django.shortcuts import redirect
 # Create your views here.
 def home(request):
-	return HttpResponse('This is home')
+	return render(request, 'general/layout.html')
 
 def user(request):
-	return HttpResponse('these are all the users')
+	users = User.objects.all()
+	# print(users)
+	context = {
+		'title' : 'Users',
+		'users' : users
+	}
+
+	return render(request, 'user/index.html', context)
 
 def user_userid(request, user_id):
-	return HttpResponse('this returns details of a user')
+	# return HttpResponse('this returns details of a user')
+	user = User.objects.get(id = user_id)
+	context = {
+		'user' : user
+	}
+	return render(request, 'user/details.html', context)
 
 def process(request):
-	return HttpResponse('this is the list of all process')
+	# return HttpResponse('this is the list of all process')
+	initial_data = {
+		'user_id' : request.user.id,
+		'capacity' : 0,
+		'period' : 24,
+		'arrival_time' : 0,
+		'deadline' : 24,
+		'type_work' : 'work'
+	}
+	process_form = ProcessForm(request.POST or None, initial = initial_data)
+	if request.method == 'POST':
+		# process_form = ProcessForm(request.POST)
+		if process_form.is_valid():
+			# process = Process()
+			# process.capacity = process_form.cleaned_data.get()
+			# process.user_id = request.user.id
+			process = process_form.save()
+			process.save()
+
+			return redirect('/process')
+	else:
+
+		processes = Process.objects.filter(user_id = request.user.id).all()
+		context = {
+			'title' : 'Processes',
+			'processes' : processes,
+			'process_form' : process_form
+
+		}
+		return render(request, 'process/index.html', context)
 
 def process_processid(request, process_id):
-	return HttpResponse('this is the details of a single process')
+	# return HttpResponse('this is the details of a single process')
+	process = Process.objects.get(id = process_id)
+	context = {
+		'process' : process
+	}
+	return render(request, 'process/details.html', context)
 
-def schedule(request):
-	return HttpResponse('this is the list of all schedules')
+def efficiency_userid(request, user_id):
 
-def schedule_user(request, user_id):
-	return HttpResponse('this is the list of all schedules of user')
-
-def schedule_user_week(request, user_id, week):
-	return HttpResponse('this is the list of all schedules of user of a week')
-
-def schedule_user_week_day(request, user_id, week, day):
-	return HttpResponse('this is the list of all schedules of user of a day')
-
-def schedule_efficiency_user(request, user_id):
-	return HttpResponse('this returns the efficiency of a user for all weeks')
-
-def schedule_efficiency_user_week(request, user_id, week):
-	return HttpResponse('this returns the efficiency of a user for a weeks')
+	efficiency = Efficiency.objects.filter(user_id = user_id).last()
+	context = {
+		'title' : 'Efficiency',
+		'efficiency' : efficiency
+	}
 
 
-def schedule_efficiency_user_week_day(request, user_id, week, day):
-	return HttpResponse('this returns the efficiency of a user for a day')	
+	return render(request, 'efficiency/index.html', context)
 
 
-def schedule_listprocess_user_week(request, user_id, week):
-	return HttpResponse('this returns the list of process of a user for a weeks')
+def slots_userid(request, user_id):
+
+	slots = Slots.objects.filter(user_id = user_id).last()
+	context = {
+		'title' : 'Slots',
+		'efficiency' : slots
+	}
 
 
-def schedule_parameters_user_week(request, user_id, week):
-	return HttpResponse('this returns the parameters of a user for a weeks')
+	return render(request, 'slots/index.html', context)
