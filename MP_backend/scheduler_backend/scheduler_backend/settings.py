@@ -31,7 +31,10 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'scheduler_project',
+    'rest_framework',
+    'rest_framework.authtoken',
     'crispy_forms',
+    'django_mysql',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,10 +44,12 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    'scheduler_backend.csrf1.DisableCsrfCheck',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -70,7 +75,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'scheduler_backend.wsgi.application'
-
+LOGIN_REDIRECT_URL =  '/'
+LOGOUT_REDIRECT_URL =  '/'
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -81,6 +87,11 @@ WSGI_APPLICATION = 'scheduler_backend.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
+
+
+
+# authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+
 
 DATABASES = {
     'default': {
@@ -141,4 +152,32 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
+STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
+
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+# REST_FRAMEWORK = {
+# 'DEFAULT_AUTHENTICATION_CLASSES': (
+# './CSRF.py',  # path of CsrfExemptSessionAuthentication class
+# 'rest_framework.authentication.BasicAuthentication'
+# ),
+# }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication', 
+        # 'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
+
+import dj_database_url 
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
