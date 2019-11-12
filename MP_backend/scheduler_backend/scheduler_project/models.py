@@ -1,5 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_mysql.models import ListCharField, JSONField
+
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def create_auth_token(sender, instance=None, created=False, **kwargs):
+#     if created:
+#         Token.objects.create(user=instance)
+
+# # path('users/', viewsauth.obtain_auth_token),
+
+
+
 # import datetime
 # Create your models here.
 
@@ -49,6 +65,34 @@ class Efficiency(models.Model):
 		verbose_name_plural = 'Efficiency'
 
 
-# class Slots(models.Model):
+class Slots(models.Model):
+	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+	slot_list = JSONField(max_length = 100)
+
+	def __str__(self):
+		return 'Id : ' + str(self.id) + 'User_id : ' + str(self.user_id) + ' Slots : ' + str(self.slot_list)
+
+	class Meta : 
+		verbose_name_plural = 'Slots'
+
+
+class Parameters(models.Model):
+	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
+	parameter_list = JSONField(max_length = 100)
+
+	def __str__(self):
+		return 'Id : ' + str(self.id) + 'User_id : ' + str(self.user_id) + ' Parameters : ' + str(self.parameter_list)
+
+	class Meta : 
+		verbose_name_plural = 'Parameters'
+
+# class Schedule(models.Model):
 # 	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
-# 	slots = 
+# 	slot_id = models.ForeignKey(Slots, on_delete = models.CASCADE)
+# 	# list_process (process, status, percentage)
+# 	parameter_id = models.ForeignKey(Parameters, on_delete = models.CASCADE)
+# 	efficiency_id = models.ForeignKey(Parameters, on_delete = models.CASCADE)
+# 	algo = models.CharField()
+# 	schedule = JSONField()
+# 	week = models.IntegerField()
+# 	day = models.IntegerField()
