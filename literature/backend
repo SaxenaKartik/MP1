@@ -10,9 +10,11 @@ User_Schedule
 
 id
 user_id
-process_list
+list_process
+week_list_process
 slots
 parameters
+week_parameters
 algo
 schedule
 efficiency
@@ -34,18 +36,99 @@ start_timing_flag
 start_timing
 
 
+
+
 /user - GET
 /user/login - GET and POST
 /user/logout - POST 
-/user/signup	- GET and POST 
+/user/signup - GET and POST 
 /process - GET and POST
 /process/process_id - GET and POST
 /schedule - GET
 /schedule/user_id - GET and POST
 /schedule/user_id/week - GET and POST
 /schedule/user_id/week/day - GET and POST
-/schedule/user_id/efficiency - GET and POST
-/schedule/user_id/efficiency/week - GET and POST
-/schedule/user_id/efficiency/week/day - GET and POST 
+/schedule/efficiency/user_id - GET and POST
+/schedule/efficiency/user_id/week - GET and POST
+/schedule/efficiency/user_id/week/day - GET and POST 
+/schedule/list_process/user_id - GET and POST
+/schedule/parameters/user_id - GET and POST
+
+
+
+user login/signup(GET and POST) -> efficiency (GET request total_efficiency/day_efficiency/week_efficiency ki) -> add slots to the database(POST/ purane slots GET) -> add task (dikhenge purane tasks GET/ POST) ->  GET parameters for the user(POST/ purane parameters GET) -> make schedule button (POST request) -> schedule for the rest of the week( GET schedule for the rest of the week) -> task finish (POST request for tasks completed, updating efficiency of day, week and total/ GET remaining tasks) -> finish schedule -> logout
+
+
+
+
+
+
+1. user login/signup(GET and POST)
+2. efficiency (GET request total_efficiency/day_efficiency/week_efficiency ki) 
+3. add slots to the database(POST/ purane slots GET)
+4. add task (dikhenge purane tasks GET/ POST)
+4.1 select the tasks to be scheduled
+5. show parameters for the user(POST/ purane parameters GET)
+6. make schedule button (POST request)
+7. schedule for the rest of the week( GET schedule for the rest of the week)
+8. task finish (POST request for tasks completed, updating efficiency of day, week and total/ GET remaining tasks)
+9. finish schedule 
+10. logout
+
+
+USER 
+
+id
+username
+email
+password
+
+
+EFFICIENCY 
+
+id 
+user_id 
+day_efficiency 
+week_efficiency 
+total_efficiency 
+
+SLOTS
+
+id 
+user_id
+slots (dictionary)
+efficiency 
+
+PROCESS 
+
+id
+capacity
+period
+arrival_time
+deadline
+type
+optional
+start_timing_flag
+start_timing
+
+PARAMETERS
+
+id 
+user_id 
+parameters (dictionary)
+
+SCHEDULE 
+
+id
+user_id 
+slots
+list_process (process, status, percentage)
+parameters 
+algo 
+schedule
+week 
+day 
+efficiency 
+
 
 
