@@ -1,0 +1,45 @@
+{%extends 'general/layout.html' %}
+
+{% block content%}
+
+<script type="text/javascript">
+	// console.log("{{profile}}")
+</script>
+
+<div class = "card">
+	<div class = "card-content">
+		<b>Process Id</b> : {{process.id}}
+	</div>
+	<div class = "card-content">
+		<b>User Id</b> : {{process.user_id.id}}
+	</div>
+	<div class = "card-content">
+		<b>Capacity</b> : {{process.capacity}}
+	</div>
+	<div class = "card-content">
+		<b>Period</b> : {{process.period}}
+	</div>
+	<!-- <hr width=100%> -->
+	<div class = "card-content">
+		<b>Arrival Time</b> : {{process.arrival_time}}
+	</div>
+	<div class = "card-content">
+		<b>Deadline</b> : {{process.deadline}}
+	</div>
+	<div class = "card-content">
+		<b>Type</b> : {{process.type_work}}
+	</div>
+	<div class = "card-content">
+		<b>Optional</b> : {{process.optional}}
+	</div>
+
+	<div class = "card-content">
+		<b>Start time flag</b> : {{process.start_time_flag}}
+	</div>
+
+	<div class = "card-content">
+		<b>Start Timing</b> : {{process.start_timing}}
+	</div>
+</div>
+
+{% endblock %}
