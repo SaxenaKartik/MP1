@@ -1,0 +1,83 @@
+{% load crispy_forms_tags %}
+<link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+	
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  /*align: center;*/
+  font-size: 16px;
+  cursor : pointer;
+}
+
+.input[type=text], .select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.input[type=submit] {
+  width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.div {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+</style>
+
+</head>
+<body>
+
+
+
+<div class="card">
+<div class="div">
+<h4 class="card-title">Sign Up</h4>
+
+<form method="post">
+{% csrf_token %}
+<input class = ".input" type="hidden" name="next" value="{{ next }}">
+
+{{ signup_form | crispy }}
+
+<button type="submit" style = "border-color: green; background-color: green" class="button">Sign Up</button>
+</form>
+</div>
+</div>
+
+<!-- <form method="post">
+  {% csrf_token %}
+  {{ user_form.as_p }}
+  {{ profile_form.as_p }}
+  <button type="submit">Sign Up</button>
+</form> -->
+</body>
+</html>

@@ -1,1 +1,0 @@
-web: gunicorn your-scheduler.wsgi --log-file -
