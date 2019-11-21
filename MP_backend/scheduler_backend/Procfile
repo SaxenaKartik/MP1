@@ -1,1 +1,1 @@
-web: gunicorn scheduler_backend.wsgi --log-file -
+web: gunicorn your-scheduler.wsgi --log-file -
