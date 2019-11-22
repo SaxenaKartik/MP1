@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import django_heroku
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -104,6 +105,8 @@ DATABASES = {
         'OPTIONS': {
             # Tell MySQLdb to connect with 'utf8mb4' character set
             'charset': 'utf8mb4',
+            # 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            # 'sql_mode': 'traditional',
         },
         # Tell Django to build the test database with the 'utf8mb4' character set
         'TEST': {
@@ -152,8 +155,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 STATIC_URL = '/static/'
 
 
@@ -177,7 +180,16 @@ REST_FRAMEWORK = {
     ]
 }
 
+# SECRET_KEY = config('SECRET_KEY')
+# DEBUG = config('DEBUG', default=False, cast=bool)
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+# }
 
-import dj_database_url 
-prod_db  =  dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(prod_db)
+# import dj_database_url 
+# prod_db  =  dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(prod_db)
+django_heroku.settings(locals())
+# del DATABASES['default']['OPTIONS']['sslmode']
