@@ -21,6 +21,14 @@ class SlotsForm(forms.ModelForm):
 	class Meta:
 		model = Slots
 		fields = ('user_id','slot_list')
+		widgets = {
+            'slot_list': forms.HiddenInput(),
+        }
+		# fields = ('user_id')
+		def clean(self):
+			cleaned_data = super(SlotsForm, self).clean()
+			return cleaned_data
+
 
 class ParametersForm(forms.ModelForm):
 	class Meta:
@@ -34,3 +42,15 @@ class SignupForm(forms.ModelForm):
 		widgets = {
             'password': forms.PasswordInput(),
         }
+
+class SlotsForm1(forms.Form):
+	Monday = forms.CharField(max_length = 100)
+	Tuesday = forms.CharField(max_length = 100)
+	Wednesday = forms.CharField(max_length = 100)
+	Thursday = forms.CharField(max_length = 100)
+	Friday = forms.CharField(max_length = 100)
+	Saturday = forms.CharField(max_length = 100)
+	Sunday = forms.CharField(max_length = 100)
+	def clean(self):
+		cleaned_data = super(SlotsForm1, self).clean()
+		return cleaned_data

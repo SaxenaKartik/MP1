@@ -67,7 +67,7 @@ class Efficiency(models.Model):
 
 class Slots(models.Model):
 	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
-	slot_list = JSONField(max_length = 100)
+	slot_list = models.CharField(max_length = 1000, blank = True)
 
 	def __str__(self):
 		return 'Id : ' + str(self.id) + 'User_id : ' + str(self.user_id) + ' Slots : ' + str(self.slot_list)
@@ -78,7 +78,9 @@ class Slots(models.Model):
 
 class Parameters(models.Model):
 	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
-	parameter_list = JSONField(max_length = 100)
+	# parameter_list = JSONField(max_length = 100)
+	parameter_list = models.CharField(max_length = 500)
+
 
 	def __str__(self):
 		return 'Id : ' + str(self.id) + 'User_id : ' + str(self.user_id) + ' Parameters : ' + str(self.parameter_list)
@@ -92,7 +94,7 @@ class Parameters(models.Model):
 # 	# list_process (process, status, percentage)
 # 	parameter_id = models.ForeignKey(Parameters, on_delete = models.CASCADE)
 # 	efficiency_id = models.ForeignKey(Parameters, on_delete = models.CASCADE)
-# 	algo = models.CharField()
-# 	schedule = JSONField()
+# 	algo = models.CharField(max_length = 100)
+# 	schedule = models.CharField(max_length = 100)
 # 	week = models.IntegerField()
 # 	day = models.IntegerField()
