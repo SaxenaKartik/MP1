@@ -30,6 +30,6 @@ urlpatterns = [
     path('api/slots/<int:user_id>', views1.api_slots_userid),
     path('parameters/<int:user_id>', views1.parameters_userid),
     path('api/parameters/<int:user_id>', views1.api_parameters_userid),
-
+    path('fullscreen', views1.fullscreen)
     # path('schedule/<int:user_id>/<int:slot_id>/<int:parameter_id>/<int:process_list_id>', views1.schedule_userid)
 ]

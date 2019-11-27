@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Process, Efficiency, Slots, Parameters
 from django.contrib.auth.models import User
-from .forms import ProcessForm, LoginForm, EfficiencyForm, SlotsForm, ParametersForm, SignupForm
+from .forms import ProcessForm, LoginForm, EfficiencyForm, SlotsForm, ParametersForm, SignupForm, SlotsForm1
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
 
@@ -22,12 +22,16 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 from django.http import JsonResponse
+
+from pynput.keyboard import Key, Controller
+import pyautogui
+import time
 # from scheduler_project.scheduler_project import 
 
 
 # Create your views here.
 def home(request):
-	return render(request, 'general/layout.html')
+	return render(request, 'general/home.html')
 
 @csrf_exempt
 @permission_classes((AllowAny,))
@@ -286,7 +290,7 @@ def efficiency_userid(request, user_id):
 			efficiency = efficiency_form.save()
 			efficiency.save()
 
-			return redirect('/efficiency/'+int(user_id))
+			return redirect('/efficiency/'+str(user_id))
 	else:
 		context = {
 			'title' : 'Efficiency',
@@ -376,24 +380,74 @@ def slots_userid(request, user_id):
 		'user_id' : request.user.id,
 		# 'slots' : {}
 	}
+
+
+	initial_data1 = {
+		'Monday' : "",
+		'Tuesday' : "",
+		'Wednesday' : "",
+		'Thursday' : "",
+		'Friday' : "",
+		'Saturday' : "",
+		'Sunday' : "",
+		# 'slots' : {}
+	}
 	slots_form = SlotsForm(request.POST or None, initial = initial_data)
+	slots_form1 = SlotsForm1(request.POST or None)
 	if request.method == 'POST':
 		# process_form = ProcessForm(request.POST)
-		if slots_form.is_valid():
-			# process = Process()
-			# process.capacity = process_form.cleaned_data.get()
-			# process.user_id = request.user.id
-			slots = slots_form.save()
-			slots.save()
+		if slots_form1.is_valid():
+			slots1 = slots_form1.clean()
+			# print(slots1) 
 
-			return redirect('/slots/'+int(user_id))
+		if slots_form.is_valid():
+			slots = slots_form.clean()
+			# print(slots)
+
+		result = Slots()
+		result.user_id = slots['user_id']
+		# result_slot = {}
+		s = 1
+		for k in slots1:
+			final_slot = [0]*24
+			time = slots1[k].split(',')
+			time_slots = []
+			for h in time:
+				pair = h.split('-')
+				time_slots.append([int(pair[0]),int(pair[1])])
+			# print(time_slots)
+			last = 0
+			for t in time_slots:
+				if t[0] and t[1]:
+					final_slot[t[0]-1] = 1
+					final_slot[t[1]-1] = 1
+					last = t[1]-1
+
+			i = 0
+			for t in time_slots:
+				i = t[0]-1
+				while i <= t[1]-1:
+					final_slot[i] = 1
+					i+=1
+
+			# print(final_slot)
+			if s!=1:
+				slots['slot_list']+=" , "
+			slots['slot_list']+=" " + str(s)+" : "+str(final_slot)
+			s+=1
+
+		result.slot_list = slots['slot_list']
+		result.save()
+
+		return redirect('/slots/'+str(user_id))
 	else : 
 		# print(int(request.user.id))
 		slots = Slots.objects.filter(user_id = user_id).last()
 		context = {
 			'title' : 'Slots',
 			'slots' : slots,
-			'slots_form' : slots_form
+			'slots_form' : slots_form,
+			'slots_form1' : slots_form1
 		}
 
 
@@ -462,7 +516,7 @@ def parameters_userid(request, user_id):
 	else :
 		parameters = Parameters.objects.filter(user_id = user_id).last()
 		context = {
-			'title' : 'parameters',
+			'title' : 'Parameters',
 			'parameters' : parameters,
 			'parameters_form' : parameters_form
 		}
@@ -608,3 +662,8 @@ def api_user_signup(request):
 			# return JsonResponse({"result":"error:get method"})
 	except Exception as e:
 		return JsonResponse({"status":"ok","result":"some error"})
+
+def fullscreen(request):
+	# time.sleep(0.5)
+	pyautogui.press("f11")
+	return redirect('/')
