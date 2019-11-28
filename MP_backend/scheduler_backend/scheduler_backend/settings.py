@@ -89,7 +89,7 @@ LOGOUT_REDIRECT_URL =  '/'
 #     }
 # }
 
-
+# os.environ['DISPLAY'] = ':0'
 
 # authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
 
