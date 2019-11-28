@@ -1,6 +1,7 @@
 {"statistics": "[]","deadline_flag": "False","fragmented_flag": "False","fragmented_range": "0","optional_task_flag": "False","optional_task_list": "[]","user_priority_flag": "False","user_priority_list": "[]","user_preference_flag": "False","user_preference_list": "{}"}
 
 
+
 {"1": "[1, 1, 2, 1, 3]","2": "[.5, 1, 2.5, 1.5, 2]","3": "[1.5, 1.5, 1.5, 1.5]","4": "[2, 3, 1]","5": "[1, 1]","6": "[6]","7": "[7]"}	
 
 
