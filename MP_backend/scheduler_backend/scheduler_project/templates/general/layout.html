@@ -13,10 +13,59 @@
   <title>Your Scheduler</title>
   <style>
 
+.button1-holder{
+  text-align:center;
+  padding-bottom:80px;
+}
+
+#style-2::-webkit-scrollbar-track
+{
+  /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+  border-radius: 10px;
+  background-color: grey;
+}
+
+#style-2::-webkit-scrollbar
+{
+  width: 5px;
+  background-color: #272C38;
+}
+
+#style-2::-webkit-scrollbar-thumb
+{
+  border-radius: 4px;
+  /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);*/
+  background-color: #272C38 ;
+}
+
+
+a.button1{
+  background-color:#272C38;
+  
+  background-image:-webkit-linear-gradient(top, #272C38, #272C38);
+  background-image:-moz-linear-gradient(top, #272C38, #272C38);
+  background-image:linear-gradient(top, #272C38, #272C38);
+
+  border:1px solid #272C38;
+  border-radius:2px;
+
+  /*box-shadow:0 2px 2px #ccc;*/
+
+  color:#fff;
+  text-decoration: none !important;
+  padding:15px 20px;
+  display:inline-block;
+  cursor:pointer;
+}
+
+a.button1:hover{
+  opacity:0.9;
+}
+
 .btn1 {
   background-color: transparent;
   border: none; /* Remove borders */
-  color: #111111; /* White text */
+  color: #111111 ; /* White text */
   padding: 2px 2px; /* Some padding */
   font-size: 10px; /* Set a font size */
   cursor: pointer; /* Mouse pointer on hover */
@@ -84,7 +133,7 @@ overflow-x: hidden;
     
     background-repeat : no-repeat;
     background-attachment : fixed;
-    background-size:100%
+    background-size:100%;
   }
 
   /*.layer
@@ -96,33 +145,43 @@ overflow-x: hidden;
     height: 100%;rr
   }
 */
+
+
+
+ @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
   .card
   {
   /*background: linear-gradient(45deg, #1870ed 0, #f18f88 100%);*/
     background-color: transparent;
     color: black;
+    font-family: 'Poppins', sans-serif;
   }
 
   .collection
   {
-    background-color: transparent;
+    background-color:transparent;
     text-align: center;
+    font-family: 'Poppins', sans-serif;
+    /*opacity: 0.6;*/
   }
 
   .collection-item
   {
     background-color: transparent;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
   }
 
-
-
- @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+  .collection-item:hover
+  {
+    opacity: 0.5;
+  }
 
  </style>
 
 
 </head>
-<body window.onload = >
+<body id = "style-2" >
 
 <div>
 <nav style = "height: 53px" class="navbar navbar-inverse ">
@@ -155,8 +214,8 @@ overflow-x: hidden;
         {% if user.is_authenticated %}
         <li><a href="/user/{{user.id}}"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
         <li><a href="/efficiency/{{user.id}}"><span class="glyphicon glyphicon-heart"></span> Efficiency</a></li>
-        <li><a href="/slots/{{user.id}}"><span class = "glyphicon glyphicon-calendar" ></span> Slots</a></li>
         <li><a href="/process"><span class="glyphicon glyphicon-tasks"></span> Tasks</a></li>
+        <li><a href="/slots/{{user.id}}"><span class = "glyphicon glyphicon-calendar" ></span> Slots</a></li>
         <li><a href="/parameters/{{user.id}}"><span class = "glyphicon glyphicon-list" ></span> Parameters</a></li> 
         <li><a href="/schedule/{{user.id}}"><span class="glyphicon glyphicon-time"></span> Schedule</a></li>
         <li><a href="/user/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -185,9 +244,9 @@ overflow-x: hidden;
 <div class="side-menu" id="sidenav">
   <!-- <a style="overflow-x: hidden;" onclick="toggleFullscreen()" id="contact">Toggle<i class="fa fa-info-circle" aria-hidden="true"></i></a> -->
   <!-- <input type = "button" onclick="toggleFullscreen()"></input> -->
-<form method="get" action="/fullscreen">
+<!-- <form method="get" action="/fullscreen">
   <button type="submit" class="btn1"><i class="material-icons" style="font-size:30px">fullscreen</i></button>
-</form>
+</form> -->
 
 </div><!-- closing of sidemenu-->
 </div><!-- container-->
