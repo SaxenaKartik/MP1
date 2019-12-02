@@ -2,12 +2,15 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
-<h5 class = 'collection'><font color=black>
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+</style>
+<h5 class = 'collection'><font color=#282938>
 {{title}}
 </font>
 </h5>
 
-<ul class = 'collection' style = 'background-color: #EEFFEE'>
+<ul class = 'collection' style = 'background-color: transparent;'>
 	{% for process in processes %}
   <!-- <li class = 'item'>Coffee</li> -->
   <!-- <li class = 'item'>Tea</li> -->
@@ -17,7 +20,7 @@
   	console.log("{{profile}}")
   </script> -->
   
-  <a style='text-decoration: none;color:darkgreen;' href="{{process.id}}" class="collection-item">Process : {{process.id}}</a>
+  <a style='text-decoration: none;color:black; background-color: transparent;' href="{{process.id}}" class="collection-item">Process : {{process.id}}</a>
   	{% endfor %}
 </ul>
 
@@ -31,4 +34,14 @@
 <button type="submit" class="btn btn-success">Add Process</button>
 </form>
 </div>
+<div class="button-holder" style="text-align: center; margin-bottom: 10px">
+      <!-- <a class="button" style="background-color: grey;">Switch Theme</a> -->
+      <a class="button1" style="background-color: grey;">Next - Add Slots!</a>
+</div>
+
+<script type="text/javascript">
+  $('a.button1').click(function(){
+        window.location.href = "/slots/".concat({{user_id}});
+    });
+</script>
 {% endblock %}
