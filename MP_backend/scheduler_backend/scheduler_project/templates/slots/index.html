@@ -2,7 +2,11 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
-<h5 class = 'collection'><font color=black>
+<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+</style>
+
+<h5 class = 'collection'><font color=#282938>
 {{title}}
 </font>
 </h5>
@@ -30,4 +34,14 @@
 <button type="submit" class="btn btn-success">Add Slots</button>
 </form>
 </div>
+<div class="button-holder" style="text-align: center; margin-bottom: 10px">
+      <!-- <a class="button" style="background-color: grey;">Switch Theme</a> -->
+      <a class="button1" style="background-color: grey;">Next - Add Parameters!</a>
+</div>
+
+<script type="text/javascript">
+  $('a.button1').click(function(){
+        window.location.href = "/parameters/".concat({{user_id}});
+    });
+</script>
 {% endblock %}
