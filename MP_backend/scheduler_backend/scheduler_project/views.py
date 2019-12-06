@@ -23,9 +23,12 @@ from rest_framework.status import (
 from rest_framework.response import Response
 from django.http import JsonResponse
 
-from pynput.keyboard import Key, Controller
-import pyautogui
+# from pynput.keyboard import Key, Controller
+# import pyautogui
 import time
+
+from django.http import HttpResponseRedirect
+
 # from scheduler_project.scheduler_project import 
 
 
@@ -145,7 +148,8 @@ def process(request):
 		context = {
 			'title' : 'Processes',
 			'processes' : processes,
-			'process_form' : process_form
+			'process_form' : process_form,
+			'user_id' : request.user.id
 
 		}
 		return render(request, 'process/index.html', context)
@@ -447,7 +451,8 @@ def slots_userid(request, user_id):
 			'title' : 'Slots',
 			'slots' : slots,
 			'slots_form' : slots_form,
-			'slots_form1' : slots_form1
+			'slots_form1' : slots_form1,
+			'user_id' : user_id
 		}
 
 
@@ -518,7 +523,8 @@ def parameters_userid(request, user_id):
 		context = {
 			'title' : 'Parameters',
 			'parameters' : parameters,
-			'parameters_form' : parameters_form
+			'parameters_form' : parameters_form,
+			'user_id' : user_id
 		}
 
 
@@ -624,7 +630,7 @@ def user_signup(request):
 				return redirect('/user/login')
 			except Exception as e:
 				messages.success(request, ('Enter username and password properly'))
-				return redirect('user/signup')
+				return redirect('/user/signup')
 			# print(user.id)
 	else:
 
@@ -663,7 +669,32 @@ def api_user_signup(request):
 	except Exception as e:
 		return JsonResponse({"status":"ok","result":"some error"})
 
-def fullscreen(request):
+# def fullscreen(request):
 	# time.sleep(0.5)
-	pyautogui.press("f11")
-	return redirect('/')
+	# pyautogui.press("f11")
+	# keyboard = Controller()
+	# keyboard.press(Key,'f11')
+	# keyboard.release(Key,'f11')
+	# return redirect('/')
+
+def schedule_userid(request, user_id):
+	# return HttpResponse("Make your schedule")
+	
+	if request.method == "POST":
+		print(request.body)
+		return redirect('/schedule/'+str(user_id)+"/")
+
+	processes = Process.objects.filter(user_id = request.user.id).all()
+	slots = Slots.objects.filter(user_id = user_id).last()
+	parameters = Parameters.objects.filter(user_id = user_id).last()
+	context = {
+		'processes' : processes,
+		'slots' : slots,
+		'parameters' : parameters,
+		'title0' : 'Schedule',
+		'title1' : 'Processes',
+		'title2' : 'Slots',
+		'title3' : 'Parameters',
+		'user_id' : request.user.id
+	}
+	return render(request,'schedule/index.html', context)
