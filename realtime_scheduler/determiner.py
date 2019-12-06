@@ -54,7 +54,7 @@ class Determiner:
 				self.decision = EDFU_Scheduler
 			else : 
 				self.process_list = copy.deepcopy(process_list)
-				self.decision = LLF_Scheduler
+				self.decision = RM_Scheduler
 		else:
 			if parameters['user_priority_flag']:
 				for i in parameters['user_priority_list']:
@@ -110,7 +110,7 @@ class Controller:
 		self.observer = observer
 	def determine(self, process_list, slots, parameters):
 		self.decision = self.determiner.determine(process_list, slots, parameters)
-		# self.observer.output(self.decision)
+		self.observer.output(self.decision)
 	def schedule(self, total_slots):
 		self.total_slots = total_slots
 		self.schedule = self.determiner.schedule_it(self.total_slots)
@@ -175,16 +175,26 @@ slots = {1 : [], 2: [], 3:[], 4 : [], 5 : [], 6 : [], 7 : []}
 
 # fetch slots from the database 
 
-slots = {
-	1 : [1,1,2,1,3],
-	2 : [.5, 1, 2.5, 1.5, 2], 
-	3 : [1.5,1.5,1.5,1.5], 
-	4 : [2,3,1], 
-	5 : [1,1], 
-	6 : [6], 
-	7 : [7]
-}
+# slots = {
+# 	1 : [1,1,2,1,3],
+# 	2 : [.5, 1, 2.5, 1.5, 2], 
+# 	3 : [1.5,1.5,1.5,1.5], 
+# 	4 : [2,3,1], 
+# 	5 : [1,1], 
+# 	6 : [6], 
+# 	7 : [7]
+# }
 
+
+slots = {
+	1 : [1, 1, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] , 
+	2 : [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] ,
+	3 : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0] ,
+	4 : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1] ,
+	5 : [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] ,
+	6 : [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1] ,
+	7 : [1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+}
 
 week_list_process = {1 : [], 2: [], 3:[], 4 : [], 5 : [], 6 : [], 7 : []}
 
@@ -224,54 +234,54 @@ week_parameters = {1 : {}, 2: {}, 3:{}, 4 : {}, 5 : {}, 6 : {}, 7 : {}}
 
 
 
-user_priority_flag = input('Do you want user priority? Y/N ')
-if user_priority_flag == 'Y':
-	parameters['user_priority_flag'] = True
-if parameters['user_priority_flag']:
-	parameters['user_priority_list'] = input('Enter the priority list : ').split()
+# user_priority_flag = input('Do you want user priority? Y/N ')
+# if user_priority_flag == 'Y':
+# 	parameters['user_priority_flag'] = True
+# if parameters['user_priority_flag']:
+# 	parameters['user_priority_list'] = input('Enter the priority list : ').split()
 
 
-sum_capacity = 0
-min_deadline = 24
-for process in list_process:
-	sum_capacity += process.capacity
-	if process.deadline<min_deadline:
-		min_deadline = process.deadline
+# sum_capacity = 0
+# min_deadline = 24
+# for process in list_process:
+# 	sum_capacity += process.capacity
+# 	if process.deadline<min_deadline:
+# 		min_deadline = process.deadline
 
-if min_deadline<24:
-	parameters['deadline_flag'] = True
+# if min_deadline<24:
+# 	parameters['deadline_flag'] = True
 
-for available_slots in slots:
-	sum_slots = 0
-	# for slot in available_slots:
-	sum_slots += sum(slots[available_slots])
-	if sum_slots<sum_capacity:
-		parameters['user_optional_flag'] = True
+# for available_slots in slots:
+# 	sum_slots = 0
+# 	# for slot in available_slots:
+# 	sum_slots += sum(slots[available_slots])
+# 	if sum_slots<sum_capacity:
+# 		parameters['user_optional_flag'] = True
 
-if parameters['user_optional_flag']:
-	parameters['user_optional_list'] = input('Enter the optional list : ')
+# if parameters['user_optional_flag']:
+# 	parameters['user_optional_list'] = input('Enter the optional list : ')
 
 
 
-# to use disjoint set union 
-fragmented_flag = input('Do you want schedule in bits and pieces? Y/N ')
-if fragmented_flag == 'Y':
-	parameters['fragmented_flag'] = True
-if parameters['fragmented_flag']:
-	fragmented_range = input('Enter the fragmented range : ')
-	parameters['fragmented_range'] = fragmented_range
+# # to use disjoint set union 
+# fragmented_flag = input('Do you want schedule in bits and pieces? Y/N ')
+# if fragmented_flag == 'Y':
+# 	parameters['fragmented_flag'] = True
+# if parameters['fragmented_flag']:
+# 	fragmented_range = input('Enter the fragmented range : ')
+# 	parameters['fragmented_range'] = fragmented_range
 
-# only for tasks without deadline 
-user_preference_flag = input('Do you want user preference? Y/N ') 
-if user_preference_flag == 'Y':
-	parameters['user_preference_flag'] = True
-if parameters['user_preference_flag']:
-	for process in list_process:
-		if process.deadline == 24:
-			parameters['user_preference_list'][process.process_id] = input('Enter start time for process ' + str(process.process_id) + ' : ') 
+# # only for tasks without deadline 
+# user_preference_flag = input('Do you want user preference? Y/N ') 
+# if user_preference_flag == 'Y':
+# 	parameters['user_preference_flag'] = True
+# if parameters['user_preference_flag']:
+# 	for process in list_process:
+# 		if process.deadline == 24:
+# 			parameters['user_preference_list'][process.process_id] = input('Enter start time for process ' + str(process.process_id) + ' : ') 
 
 # print(parameters)
-
+parameters = {'user_priority_flag': False, 'user_priority_list': [], 'optional_task_flag': False, 'optional_task_list': [], 'deadline_flag': True, 'user_preference_flag': False, 'user_preference_list': {}, 'fragmented_flag': False, 'fragmented_range': 0, 'statistics': [], 'user_optional_flag': True, 'user_optional_list': ''}
 # print(day)
 
 for i in range(day+1, 8):

@@ -146,6 +146,7 @@ efficiency
 /slot/<user_id> - GET and POST
 /parameters/<user_id> - GET and POST
 /schedule/<user_id>/<slot_id>/<parameter_id>/<list_process> - GET and POST
+/schedule/<user_id>/ - GET and POST 
 
 
 
