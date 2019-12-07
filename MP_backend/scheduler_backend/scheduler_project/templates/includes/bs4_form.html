@@ -1,0 +1,43 @@
+{% load widget_tweaks %}
+
+<style type="text/css">
+  label
+  {
+    color: black
+  }
+</style>
+
+{% for hidden_field in form.hidden_fields %}
+  {{ hidden_field }}
+{% endfor %}
+
+{% if form.non_field_errors %}
+  <div class="alert alert-danger" role="alert" style="font-size: 12px; color: black">
+    {% for error in form.non_field_errors %}
+      {{ error }}
+    {% endfor %}
+  </div>
+{% endif %}
+
+{% for field in form.visible_fields %}
+  <div class="form-group" style="text-align: left; color: black">
+    {{ field.label_tag }}
+    {% if form.is_bound %}
+      {% if field.errors %}
+        {% render_field field class="form-control is-invalid" %}
+        {% for error in field.errors %}
+          <div class="invalid-feedback" style="color: black">
+            {{ error }}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% render_field field class="form-control is-valid" %}
+      {% endif %}
+    {% else %}
+      {% render_field field class="form-control" %}
+    {% endif %}
+    {% if field.help_text %}
+      <small class="form-text" style="font-size: 10px; text-align: left; color: black">{{ field.help_text }}</small>
+    {% endif %}
+  </div>
+{% endfor %}
