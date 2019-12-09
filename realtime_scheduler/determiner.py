@@ -54,7 +54,19 @@ class Determiner:
 				self.decision = EDFU_Scheduler
 			else : 
 				self.process_list = copy.deepcopy(process_list)
-				self.decision = RM_Scheduler
+				# print(self.process_list)
+				min_capacity = 24
+				for p in self.process_list:
+					if p.capacity<min_capacity:
+						min_capacity = p.capacity
+				# print(min_capacity)
+				if parameters['fragmented_flag']:
+					if parameters['fragmented_range']<min_capacity:
+						self.decision = LLF_Scheduler
+					else:
+						self.decision = MLLF_Scheduler
+				else:
+					self.decision = EDF_Scheduler
 		else:
 			if parameters['user_priority_flag']:
 				for i in parameters['user_priority_list']:
@@ -281,7 +293,7 @@ week_parameters = {1 : {}, 2: {}, 3:{}, 4 : {}, 5 : {}, 6 : {}, 7 : {}}
 # 			parameters['user_preference_list'][process.process_id] = input('Enter start time for process ' + str(process.process_id) + ' : ') 
 
 # print(parameters)
-parameters = {'user_priority_flag': False, 'user_priority_list': [], 'optional_task_flag': False, 'optional_task_list': [], 'deadline_flag': True, 'user_preference_flag': False, 'user_preference_list': {}, 'fragmented_flag': False, 'fragmented_range': 0, 'statistics': [], 'user_optional_flag': True, 'user_optional_list': ''}
+parameters = {'user_priority_flag': False, 'user_priority_list': [], 'optional_task_flag': False, 'optional_task_list': [], 'deadline_flag': True, 'user_preference_flag': False, 'user_preference_list': {}, 'fragmented_flag': True, 'fragmented_range': 5, 'statistics': [], 'user_optional_flag': True, 'user_optional_list': ''}
 # print(day)
 
 for i in range(day+1, 8):
