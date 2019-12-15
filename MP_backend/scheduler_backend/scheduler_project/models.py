@@ -23,6 +23,7 @@ from rest_framework.authtoken.models import Token
 
 class Process(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+	name = models.CharField(max_length = 100, blank = True)
 	capacity = models.IntegerField()
 	period = models.IntegerField(default = 24, blank = True)
 	arrival_time = models.IntegerField(default = 0, blank = True )
@@ -38,7 +39,7 @@ class Process(models.Model):
  #            self.fields['start_time_flag'].initial = True
 
 	def __str__(self):
-		return 'Id : ' + str(self.id) + 'User_id : ' + str(self.user_id) + ' Capacity : ' + str(self.capacity) + ' Period : ' + str(self.period) + ' Arrival Time : ' + str(self.arrival_time) + ' Deadline : ' + str(self.deadline) + ' Type : ' + str(self.type_work) + ' Optional : ' + str(self.optional) + ' Start Time Flag : ' + str(self.start_time_flag) + ' Start Timing : ' + str(self.start_timing)
+		return 'Id : ' + str(self.id) +'Name : '+str(self.name) + 'User_id : ' + str(self.user_id) + ' Capacity : ' + str(self.capacity) + ' Period : ' + str(self.period) + ' Arrival Time : ' + str(self.arrival_time) + ' Deadline : ' + str(self.deadline) + ' Type : ' + str(self.type_work) + ' Optional : ' + str(self.optional) + ' Start Time Flag : ' + str(self.start_time_flag) + ' Start Timing : ' + str(self.start_timing)
 
 
 	class Meta : 
@@ -88,13 +89,22 @@ class Parameters(models.Model):
 	class Meta : 
 		verbose_name_plural = 'Parameters'
 
-# class Schedule(models.Model):
-# 	user_id = models.ForeignKey(User, on_delete = models.CASCADE)
-# 	slot_id = models.ForeignKey(Slots, on_delete = models.CASCADE)
-# 	# list_process (process, status, percentage)
-# 	parameter_id = models.ForeignKey(Parameters, on_delete = models.CASCADE)
-# 	efficiency_id = models.ForeignKey(Parameters, on_delete = models.CASCADE)
-# 	algo = models.CharField(max_length = 100)
-# 	schedule = models.CharField(max_length = 100)
-# 	week = models.IntegerField()
-# 	day = models.IntegerField()
+class Schedule(models.Model):
+	user_id = models.ForeignKey(User, on_delete = models.CASCADE, blank = True)
+	slot_id = models.ForeignKey(Slots, on_delete = models.CASCADE, blank = True)
+	process_list =  models.CharField(max_length = 1000, blank = True)
+	parameter_id = models.ForeignKey(Parameters, on_delete = models.CASCADE, blank = True)
+	efficiency_id = models.ForeignKey(Efficiency, on_delete = models.CASCADE, blank = True)
+	algo = models.CharField(max_length = 100, blank = True)
+	schedule = models.CharField(max_length = 2000, blank = True)
+	week = models.IntegerField(blank = True)
+	day = models.IntegerField(blank = True)
+
+	def __str__(self):
+		return 'Id : ' + str(self.id) +'slots id : '+str(self.slot_id)+"process_list : "+str(self.process_list)+"parameter_id : "+str(self.parameter_id)+"efficiency_id : "+str(self.efficiency_id)+"algo : "+str(self.algo)+"schedule : "+str(self.schedule)+"week : "+str(self.week)+"day : "+str(self.day)
+
+	class Meta : 
+		verbose_name_plural = 'Schedule'
+
+				
+
