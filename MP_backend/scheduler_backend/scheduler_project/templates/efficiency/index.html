@@ -11,11 +11,11 @@
 </h5>
 <div class = "card">
 	
-	<div class = "card-content">
+	<!-- <div class = "card-content">
 		<b>Daily Efficiency</b> : {{efficiency.daily_efficiency}}
 	</div><div class = "card-content">
 		<b>Weekly Efficiency</b> : {{efficiency.weekly_efficiency}}
-	</div>
+	</div> -->
 	<div class = "card-content">
 		<b>Total Efficiency</b> : {{efficiency.total_efficiency}}
 	</div>
@@ -39,14 +39,13 @@
 	</div>
 </div>
 
-<div class = "card" style = 'margin-left: 200px; margin-bottom: 50px; margin-right: 200px; padding-left: 20px; padding-right: 20px; padding-top: 40px; padding-bottom: 50px'>
+<!-- <div class = "card" style = 'margin-left: 200px; margin-bottom: 50px; margin-right: 200px; padding-left: 20px; padding-right: 20px; padding-top: 40px; padding-bottom: 50px'>
 <form method="post" style = 'margin-left: 30px; margin-right: 30px'>
 {% csrf_token %}
-<!-- {{ efficiency_form | crispy}} -->
   {% include 'includes/bs4_form.html' with form=efficiency_form %}
 
 <button type="submit" class="btn btn-success">Add Efficiency</button>
 </form>
-</div>
+</div> -->
 
 {% endblock %}
