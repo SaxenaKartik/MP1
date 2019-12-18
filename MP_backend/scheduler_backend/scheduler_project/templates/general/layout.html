@@ -214,7 +214,7 @@ overflow-x: hidden;
         {% if user.is_authenticated %}
         <li><a href="/user/{{user.id}}"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
         <li><a href="/efficiency/{{user.id}}"><span class="glyphicon glyphicon-heart"></span> Efficiency</a></li>
-        <li><a href="/process"><span class="glyphicon glyphicon-tasks"></span> Tasks</a></li>
+        <li><a href="/process/{{user.id}}"><span class="glyphicon glyphicon-tasks"></span> Tasks</a></li>
         <li><a href="/slots/{{user.id}}"><span class = "glyphicon glyphicon-calendar" ></span> Slots</a></li>
         <li><a href="/parameters/{{user.id}}"><span class = "glyphicon glyphicon-list" ></span> Parameters</a></li> 
         <li><a href="/schedule/{{user.id}}"><span class="glyphicon glyphicon-time"></span> Schedule</a></li>
