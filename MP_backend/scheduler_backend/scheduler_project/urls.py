@@ -20,10 +20,10 @@ urlpatterns = [
     # path('user/signup', views.user_signup),
     path('user/<int:user_id>', views1.user_userid),
     path('api/user/<int:user_id>', views1.api_user_userid), 
-    path('process/', views1.process),
-    path('api/process/', views1.api_process), 
-    path('process/<int:process_id>', views1.process_processid),
-    path('api/process/<int:process_id>', views1.api_process_processid),
+    path('process/<int:user_id>', views1.process_userid),
+    path('api/process/<int:user_id>', views1.api_process_userid), 
+    path('process/<int:user_id>/<int:process_id>', views1.process_userid_processid),
+    path('api/process/<int:user_id>/<int:process_id>', views1.api_process_userid_processid),
     path('efficiency/<int:user_id>', views1.efficiency_userid),
     path('api/efficiency/<int:user_id>', views1.api_efficiency_userid),
     path('slots/<int:user_id>', views1.slots_userid),
@@ -31,5 +31,6 @@ urlpatterns = [
     path('parameters/<int:user_id>', views1.parameters_userid),
     path('api/parameters/<int:user_id>', views1.api_parameters_userid),
     # path('fullscreen/', views1.fullscreen)
-    path('schedule/<int:user_id>/', views1.schedule_userid)
+    path('schedule/<int:user_id>/', views1.schedule_userid),
+    # path('api/userid', views1.api_userid)
 ]

@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Process, Efficiency, Slots, Parameters
+from .models import Process, Efficiency, Slots, Parameters, Schedule
 from django.contrib.auth.models import User
 from .forms import ProcessForm, LoginForm, EfficiencyForm, SlotsForm, ParametersForm, SignupForm, SlotsForm1
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import redirect
-
+import math
 import datetime
 import requests
 import json
@@ -22,7 +22,7 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 from django.http import JsonResponse
-
+from realtime_scheduler import determiner
 # from pynput.keyboard import Key, Controller
 # import pyautogui
 import time
@@ -34,7 +34,10 @@ from django.http import HttpResponseRedirect
 
 # Create your views here.
 def home(request):
-	return render(request, 'general/home.html')
+	context = {
+		'user_id' : request.user.id
+	}
+	return render(request, 'general/home.html',context)
 
 @csrf_exempt
 @permission_classes((AllowAny,))
@@ -121,10 +124,11 @@ def api_user_userid(request, user_id):
 
 
 
-def process(request):
+
+def process_userid(request, user_id):
 	# return HttpResponse('this is the list of all process')
 	initial_data = {
-		'user_id' : request.user.id,
+		'user_id' : user_id,
 		'capacity' : 0,
 		'period' : 24,
 		'arrival_time' : 0,
@@ -141,15 +145,15 @@ def process(request):
 			process = process_form.save()
 			process.save()
 
-			return redirect('/process')
+			return redirect('/process/'+str(user_id))
 	else:
 
-		processes = Process.objects.filter(user_id = request.user.id).all()
+		processes = Process.objects.filter(user_id = user_id).all()
 		context = {
 			'title' : 'Processes',
 			'processes' : processes,
 			'process_form' : process_form,
-			'user_id' : request.user.id
+			'user_id' : user_id
 
 		}
 		return render(request, 'process/index.html', context)
@@ -158,10 +162,10 @@ def process(request):
 @csrf_exempt
 @permission_classes((AllowAny,))
 @api_view(['POST','GET'])
-def api_process(request):
+def api_process_userid(request,user_id):
 	try:
 		if(request.method == "GET"):
-			processes = Process.objects.all()
+			processes = Process.objects.filter(user_id=user_id).all()
 			context = {
 				'title' : 'Users',
 				'processes' : processes
@@ -169,18 +173,19 @@ def api_process(request):
 			process_list = []
 			if (len(processes)>0):
 				for i in range(len(processes)):
-					process_list.append([processes[i].id])
+					process_list.append([processes[i].id, processes[i].name])
 				result = process_list
 			else:
-				result = "No User Exist"
+				result = "No Processes Exist"
 			# print("here")
 			return JsonResponse({"status":"ok","result":{"Processes":result}})
 
 		else:
 			try:
-				# print("here")
+				# print(request.data.get("capacity"))
 				# user_id = request.data.get("user_id")
 				user_id = request.data.get("user_id") or 1
+				name = request.data.get("name") or "Code"
 				capacity = request.data.get("capacity") or 0
 				period = request.data.get("period") or 24
 				arrival_time = request.data.get("arrival_time") or 0
@@ -190,12 +195,13 @@ def api_process(request):
 				start_time_flag = request.data.get("start_time_flag") or 0
 				start_timing = request.data.get("start_timing")
 				# print(user_id, slots_list)
-
-				print(user_id,capacity,period,arrival_time,deadline,type_work,optional,start_time_flag,start_timing)
+				# print(name)
+				# print(user_id,name,capacity,period,arrival_time,deadline,type_work,optional,start_time_flag,start_timing)
 
 				process = Process()
 				process.user_id = User.objects.get(id = user_id)
 				# print(process.user_id)
+				process.name = name
 				process.capacity = capacity
 				process.period = period
 				process.arrival_time = arrival_time
@@ -205,6 +211,7 @@ def api_process(request):
 				process.start_time_flag = start_time_flag
 				process.start_timing = start_timing
 
+				print(process.name,process.capacity,process.period,process.arrival_time,process.deadline,process.type_work,process.optional,process.start_time_flag,process.start_timing)
 				# ,process.capacity,process.period,process.arrival_time,process.deadline,process.type_work,process.optional,process.start_time_flag,process.start_timing)
 				# print("here")
 				process.save()
@@ -220,7 +227,7 @@ def api_process(request):
 		return JsonResponse({"status":"ok","result":"some error"})
 
 
-def process_processid(request, process_id):
+def process_userid_processid(request,user_id,process_id):
 	# return HttpResponse('this is the details of a single process')
 	process = Process.objects.get(id = process_id)
 	context = {
@@ -230,7 +237,7 @@ def process_processid(request, process_id):
 
 
 @csrf_exempt
-def api_process_processid(request, process_id):
+def api_process_userid_processid(request, user_id,process_id):
 	try:
 		if(request.method == "GET"):
 			process = Process.objects.get(id = process_id)
@@ -272,7 +279,7 @@ def efficiency_userid(request, user_id):
 		day = efficiency.day
 
 	initial_data = {
-		'user_id' : request.user.id,
+		'user_id' : user_id,
 		'daily_efficiency' : 0,
 		'weekly_efficiency' : 0,
 		'total_efficiency' : 0,
@@ -346,8 +353,8 @@ def api_efficiency_userid(request, user_id):
 				total_efficiency = request.data.get("total_efficiency") or 0
 				day = request.data.get("day") or datetime.datetime.today().weekday()
 				week = request.data.get("week") or datetime.datetime.today().isocalendar()[1]
-				total_days = request.data.get("total_days") or efficiency.day+1
-				total_weeks = request.data.get("total_weeks") or efficiency.day//7
+				total_days = request.data.get("total_days") or efficiency.total_days+1
+				total_weeks = request.data.get("total_weeks") or math.ceil(efficiency.total_days/7)
 				tasks_attempted = request.data.get("tasks_attempted") or 0
 				tasks_completed = request.data.get("tasks_completed") or 0
 				# print(user_id, slots_list)
@@ -381,7 +388,7 @@ def api_efficiency_userid(request, user_id):
 def slots_userid(request, user_id):
 
 	initial_data = {
-		'user_id' : request.user.id,
+		'user_id' : user_id,
 		# 'slots' : {}
 	}
 
@@ -504,7 +511,7 @@ def api_slots_userid(request, user_id):
 def parameters_userid(request, user_id):
 
 	initial_data = {
-		'user_id' : request.user.id,
+		'user_id' : user_id,
 		# parameters
 	}
 	parameters_form = ParametersForm(request.POST or None, initial = initial_data)
@@ -589,6 +596,11 @@ def api_user_login(request):
 	    # 	d[t[0]] = t[1]
 	    # print(d) 
     username = request.data.get("username")
+    user_id = 0
+    users = User.objects.all()
+    for user in users:
+    	if user.username == username:
+    		user_id = user.id
     password = request.data.get("password")
     # username = d['username']
     # password = d['password']
@@ -601,7 +613,7 @@ def api_user_login(request):
         return Response({'error': 'Invalid Credentials'},
                         status=HTTP_404_NOT_FOUND)
     token, _ = Token.objects.get_or_create(user=user)
-    return JsonResponse({'token': token.key},
+    return JsonResponse({'token': user_id},
                     status=HTTP_200_OK)
 	# else : 
 	# 	return render(request, 'registration/login.html')
@@ -678,16 +690,282 @@ def api_user_signup(request):
 	# return redirect('/')
 
 def schedule_userid(request, user_id):
-	# return HttpResponse("Make your schedule")
 	
-	if request.method == "POST":
-		print(request.body)
-		return redirect('/schedule/'+str(user_id)+"/")
-
-	processes = Process.objects.filter(user_id = request.user.id).all()
+	processes = Process.objects.filter(user_id = user_id).all()
 	slots = Slots.objects.filter(user_id = user_id).last()
 	parameters = Parameters.objects.filter(user_id = user_id).last()
+	efficiency = Efficiency.objects.filter(user_id = user_id).last()
+	schedule = Schedule.objects.filter(user_id = user_id).last()
+	# print(datetime.datetime.today().weekday())
+	day_change = 0
+	if schedule != None:
+		day_change = 1 if datetime.datetime.today().weekday()!=efficiency.day else 0
+	# day_change = 1
+	list_process = []
+	# print(eval(schedule.process_list))
+	# list_process = eval(schedule.process_list)
+	if schedule!=None:
+		check = eval(schedule.process_list)
+		for k in eval(schedule.process_list):
+			if check[k] == 0:
+				process = Process.objects.get(id = int(k))
+				list_process.append(determiner.Process(process.id,process.capacity,process.name,process.period, process.arrival_time,process.deadline, process.type_work))
+
+	process_list1_len = 0
+	process_list2_len = 0
+	# day_change = 1
+
+	if day_change:
+		for k in eval(schedule.process_list):
+			process = Process.objects.get(id = int(k))
+			list_process.append(determiner.Process(process.id,process.capacity,process.name,process.period, process.arrival_time,process.deadline, process.type_work))
+			efficiency1 = Efficiency()
+			efficiency1.daily_efficiency = 0
+			efficiency1.weekly_efficiency = 0
+			efficiency1.total_efficiency = 0 if efficiency==None else efficiency.total_efficiency
+			efficiency1.user_id = User(user_id)
+			efficiency1.day = datetime.datetime.today().weekday()
+			efficiency1.week = datetime.datetime.today().isocalendar()[1]
+			efficiency1.tasks_attempted =  len(list_process) if efficiency==None else efficiency.tasks_attempted+len(list_process)
+			efficiency1.tasks_completed = 0 if efficiency==None else efficiency.tasks_completed
+			efficiency1.total_days =  efficiency.total_days+1
+			efficiency1.total_weeks =  math.ceil(efficiency.total_days/7)
+			efficiency1.save()
+			# schedule = Schedule.objects.filter(user_id = user_id).last()
+			schedule.efficiency_id = efficiency1
+			schedule.save()
+
+	if (request.method == "POST" and "make_schedule" in request.POST):
+		# print(request.data)
+		s = str(request.body)
+		process_list = []
+		flag = 0
+		for i in range(0,len(s)):
+			c = s[i]
+			if flag==1:
+				st = ""
+				j = i
+				while c.isdigit() and j<=len(s):
+					st += c 
+					j+=1
+					c = s[j]
+				# print(st)
+				if st != "":
+					pair = [int(st),0]
+					process_list.append(pair)
+				flag = 0
+			if c=='=':
+				flag = 1
+		# print(process_list)
+		# print(user_id, slots.id, parameters.id, efficiency.id, process_list)
+		# new_process_list = []
+		list_process = []
+		# list_slot = []
+		# list_parameter = []
+
+		for k in process_list:
+			if k[1]==0:
+				process = Process.objects.get(id = k[0])
+				list_process.append(determiner.Process(process.id,process.capacity,process.name,process.period, process.arrival_time,process.deadline, process.type_work))
+
+		# print(list_process)
+		# print(slots.slot_list)
+		slots.slot_list += " } "
+		slots.slot_list = " { "  + slots.slot_list
+			# slots.slot_list[i] = slots_integer
+		slots_dict = eval(slots.slot_list)
+		# print(slots_dict)
+		process_list = {}
+		for k in list_process:
+			# print(k.process_id)
+			process_list[k.process_id] = 0
+
+		# parameters.parameter_list+="}"
+		# parameters.parameter_list = " { "  + parameters.parameter_list
+		# print(parameters.parameter_list)
+		# process_list1_len = len(list_process)
+		efficiency1 = Efficiency()
+		efficiency1.daily_efficiency = 0
+		efficiency1.weekly_efficiency = 0
+		efficiency1.total_efficiency = 0 if efficiency==None else efficiency.total_efficiency
+		efficiency1.user_id = User(user_id)
+		efficiency1.day = datetime.datetime.today().weekday()
+		efficiency1.week = datetime.datetime.today().isocalendar()[1]
+		efficiency1.tasks_attempted =  len(list_process) if efficiency==None else efficiency.tasks_attempted+len(list_process)
+		efficiency1.tasks_completed = 0 if efficiency==None else efficiency.tasks_completed
+		# if efficiency==None: 
+			# print(2)
+		efficiency1.total_days =  1 if efficiency==None else (efficiency.total_days+1 if efficiency.day!=efficiency1.day else efficiency.total_days)  
+		efficiency1.total_weeks =  1 if efficiency==None else (math.ceil(efficiency.total_days/7) if efficiency.week!=efficiency1.week else efficiency.total_weeks)
+		efficiency1.save()
+
+		parameter_dict = eval(parameters.parameter_list)
+		schedule = Schedule()
+		schedule.user_id = User(user_id)
+		schedule.slot_id = Slots(slots.id)
+		schedule.parameter_id = Parameters(parameters.id)
+		schedule.efficiency_id = Efficiency(efficiency1.id)
+		schedule.process_list = process_list
+
+		# print(slots.slot_list)
+		decision,schedule_made = determiner.work(list_process,slots_dict,parameter_dict)
+		# print(decision.name)
+		schedule.algo = str(decision.name)
+		schedule.schedule = str(schedule_made)
+		schedule.day = datetime.datetime.today().weekday()
+		schedule.week = datetime.datetime.today().isocalendar()[1]
+		
+		# print(schedule.user_id.id,schedule.slot_id.id,schedule.parameter_id.id,schedule.efficiency_id.id,schedule.process_list,schedule.algo,schedule.schedule,schedule.day,schedule.week)	
+		schedule.save()
+		return redirect('/schedule/'+str(user_id)+"/")
+
+	if request.method == "POST" and "add_to_schedule" in request.POST and day_change!=1:
+		# check = {}
+		check = eval(schedule.process_list) if schedule!=None else {}
+		# print(check)
+		s = str(request.body)
+		process_list = []
+		flag = 0
+		for i in range(0,len(s)):
+			c = s[i]
+			if flag==1:
+				st = ""
+				j = i
+				while c.isdigit() and j<=len(s):
+					st += c 
+					j+=1
+					c = s[j]
+				# print(st)
+				if st != "":
+					pair = [int(st),0]
+					process_list.append(pair)
+				flag = 0
+			if c=='=':
+				flag = 1
+		# print(process_list)
+		for k in process_list:
+			check[k[0]]=0
+		# print(check)
+		added = len(process_list)
+		list_process = []
+		# list_slot = []
+		# list_parameter = []
+
+		for k in check:
+			if check[k]==0:
+				process = Process.objects.get(id = k)
+				list_process.append(determiner.Process(process.id,process.capacity,process.name,process.period, process.arrival_time,process.deadline, process.type_work))
+
+		# print(list_process)
+		# print(slots.slot_list)
+		slots.slot_list += " } "
+		slots.slot_list = " { "  + slots.slot_list
+			# slots.slot_list[i] = slots_integer
+		slots_dict = eval(slots.slot_list)
+		# print(slots_dict)
+		process_list = {}
+		for k in list_process:
+			# print(k.process_id)
+			process_list[k.process_id] = 0
+
+		efficiency1 = Efficiency()
+		efficiency1.daily_efficiency = efficiency.daily_efficiency
+		efficiency1.weekly_efficiency = efficiency.weekly_efficiency
+		efficiency1.total_efficiency = 0 if efficiency==None else efficiency.total_efficiency
+		efficiency1.user_id = User(user_id)
+		efficiency1.day = datetime.datetime.today().weekday()
+		efficiency1.week = datetime.datetime.today().isocalendar()[1]
+		efficiency1.tasks_attempted =  len(list_process) if efficiency==None else efficiency.tasks_attempted+added
+		efficiency1.tasks_completed = 0 if efficiency==None else efficiency.tasks_completed
+		# if efficiency==None: 
+			# print(2)
+		efficiency1.total_days =  1 if efficiency==None else (efficiency.total_days+1 if efficiency.day!=efficiency1.day else efficiency.total_days)  
+		efficiency1.total_weeks =  1 if efficiency==None else (math.ceil(efficiency.total_days/7) if efficiency.week!=efficiency1.week else efficiency.total_weeks)
+		efficiency1.save()
+
+		parameter_dict = eval(parameters.parameter_list)
+		schedule = Schedule()
+		schedule.user_id = User(user_id)
+		schedule.slot_id = Slots(slots.id)
+		schedule.parameter_id = Parameters(parameters.id)
+		schedule.efficiency_id = Efficiency(efficiency1.id)
+		schedule.process_list = check
+		# print(slots.slot_list)
+		decision,schedule_made = determiner.work(list_process,slots_dict,parameter_dict)
+		# print(decision.name)
+		schedule.algo = str(decision.name)
+		schedule.schedule = str(schedule_made)
+		schedule.day = datetime.datetime.today().weekday()
+		schedule.week = datetime.datetime.today().isocalendar()[1]
+		schedule.save()
+		return redirect('/schedule/'+str(user_id)+"/")
+
+
+
+	if request.method=="POST" and "update_schedule" in request.POST:
+		s = str(request.body)
+		print(s)
+		process_list = []
+		flag = 0
+		for i in range(0,len(s)):
+			c = s[i]
+			if flag==1:
+				st = ""
+				j = i
+				while c.isdigit() and j<=len(s):
+					st += c 
+					j+=1
+					c = s[j]
+				# print(st)
+				if st != "":
+					pair = [int(st),1]
+					process_list.append(pair)
+				flag = 0
+			if c=='=':
+				flag = 1
+		# print(process_list)
+		check = eval(schedule.process_list)
+		for k in process_list:
+			check[k[0]] = 1
+		# schedule.process_list = check
+		# print(check)
+		# process_list2_len = len(process_list)
+		efficiency1 = Efficiency()
+		efficiency1.daily_efficiency = efficiency.daily_efficiency
+		efficiency1.weekly_efficiency = efficiency.weekly_efficiency
+		efficiency1.tasks_attempted =  efficiency.tasks_attempted
+		efficiency1.tasks_completed = efficiency.tasks_completed + len(process_list)
+		efficiency1.total_efficiency = ((100*efficiency1.tasks_completed)/efficiency1.tasks_attempted)
+		efficiency1.user_id = efficiency.user_id
+		efficiency1.day = efficiency.day
+		efficiency1.week = efficiency.week
+		efficiency1.total_days =  efficiency.total_days
+		efficiency1.total_weeks =  efficiency.total_weeks
+		efficiency1.save()
+
+
+		schedule1 = Schedule()
+		schedule1.user_id = schedule.user_id
+		schedule1.slot_id = schedule.slot_id
+		schedule1.parameter_id = schedule.parameter_id
+		schedule1.efficiency_id = efficiency1
+		schedule1.process_list = check
+
+		# print(slots.slot_list)
+		# decision,schedule_made = determiner.work(list_process,slots_dict,parameter_dict)
+		# print(decision.name)
+		schedule1.algo = schedule.algo
+		schedule1.schedule = schedule.schedule
+		schedule1.day = schedule.day
+		schedule1.week = schedule.week
+		schedule1.save()
+
+		# schedule.process_list = check
+		return redirect('/schedule/'+str(user_id)+"/")
+
 	context = {
+		'schedule' : schedule,
+		'list_process' : list_process,
 		'processes' : processes,
 		'slots' : slots,
 		'parameters' : parameters,
@@ -695,6 +973,6 @@ def schedule_userid(request, user_id):
 		'title1' : 'Processes',
 		'title2' : 'Slots',
 		'title3' : 'Parameters',
-		'user_id' : request.user.id
+		'user_id' : user_id
 	}
 	return render(request,'schedule/index.html', context)
