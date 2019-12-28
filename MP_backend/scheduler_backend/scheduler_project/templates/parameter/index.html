@@ -1,0 +1,30 @@
+{%extends 'general/layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content%}
+<h5 class = 'center-align green lighten-4'><font color=black>
+{{title}}
+</font>
+</h5>
+<div class = "card">
+	
+	<div class = "card-content">
+		<b>Parameter Id</b> : {{parameters.id}}
+	</div>
+	<div class = "card-content">
+		<b>User Id</b> : {{parameters.user_id}}
+	</div>
+
+	<div class = "card-content">
+		<b>Parameters</b> : {{parameters.parameter_list}}
+	</div>
+</div>
+
+<div class = "card" style = 'margin-left: 200px; margin-bottom: 50px; margin-right: 200px; padding-left: 20px; padding-right: 20px; padding-top: 40px; padding-bottom: 50px'>
+<form method="post" style = 'margin-left: 30px; margin-right: 30px'>
+{% csrf_token %}
+{{ parameters_form | crispy}}
+<button type="submit" class="btn btn-success">Add Params</button>
+</form>
+</div>
+{% endblock %}

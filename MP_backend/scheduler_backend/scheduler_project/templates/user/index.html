@@ -1,0 +1,24 @@
+
+{%extends 'general/layout.html' %}
+
+{% block content%}
+<h5 class = 'center-align green lighten-4'><font color=black>
+{{title}}
+</font>
+</h5>
+
+<ul class = 'collection' style = 'background-color: #fff'>
+	{% for user in users %}
+  <!-- <li class = 'item'>Coffee</li> -->
+  <!-- <li class = 'item'>Tea</li> -->
+  <!-- <li class = 'item'>Coca Cola</li> -->
+  <!-- <li class = 'collection-item' style = 'padding :10px 10px;'><a href = "user/details/{{user.id}}">{{user}}</a></li> -->
+  <!-- <script type="text/javascript">
+  	console.log("{{user}}")
+  </script> -->
+  
+  <a style='text-decoration: none;color:darkgreen' href="{{user.id}}" class="collection-item">{{user}}</a>
+  	{% endfor %}
+</ul>
+
+{% endblock %}

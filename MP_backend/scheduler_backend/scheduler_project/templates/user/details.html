@@ -1,0 +1,29 @@
+{%extends 'general/layout.html' %}
+
+{% block content%}
+
+<script type="text/javascript">
+	// console.log("{{profile}}")
+</script>
+
+<div class = "card">
+	<div class = "card-content">
+		<b>First Name</b> : {{user.first_name}}
+	</div>
+	<div class = "card-content">
+		<b>Last Name</b> : {{user.last_name}}
+	</div>
+	<div class = "card-content">
+		<b>Username</b> : {{user.username}}
+	</div>
+	<!-- <hr width=100%> -->
+	<div class = "card-content">
+		<b>Email</b> : {{user.email}}
+	</div>
+	<div class = "card-content">
+		<b>Date of Joining</b> : {{user.date_joined}}
+	</div>
+	
+</div>
+
+{% endblock %}

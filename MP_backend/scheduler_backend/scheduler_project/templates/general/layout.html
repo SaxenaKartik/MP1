@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <title>Home</title>
+  <style>
+  body
+  {
+    background_repeat : no-repeat;
+    background-attachment : fixed;
+    background-size:100%
+  }
+
+  </style>
+
+</head>
+<body>
+<div>
+
+<h3 align = center>
+
+<a href="/" style = "text-decoration: none">
+<font color=black face = "Cooper">
+Your
+</font>
+<font color=green face = "Cooper">
+Scheduler
+</font>
+</h3>
+</a>
+<!-- <hr width = 50% color="black"> -->
+
+<nav style = "height: 53px" class="navbar navbar-inverse ">
+  <div  class="container-fluid">
+    <div  class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <!--  <div class = "navbar-brand" >
+          HEY
+        </div> -->
+    <a style = "position: relative; z-index: 2" class = "navbar-brand" href="/">
+     <span class="glyphicon glyphicon-home">
+     </span> YourScheduler
+    </a>
+        
+    </div>
+    <div style = "position: absolute; z-index: 1;  width: 100%; background: #101010; margin-left: -16px; margin-right: -16px;"  class="collapse navbar-collapse"id="myNavbar" >
+    <div>  
+    </div>
+      <!-- <ul class="nav navbar-nav">
+        <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+      </ul> -->
+      <ul class="nav navbar-nav navbar-right">
+        
+        {% if user.is_authenticated %}
+        <li><a href="/user/{{user.id}}"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
+        <li><a href="/efficiency/{{user.id}}"><span class="glyphicon glyphicon-heart"></span> Efficiency</a></li>
+        <li><a href="/slots/{{user.id}}"><span class = "glyphicon glyphicon-calendar" ></span> Slots</a></li>
+        <li><a href="/process"><span class="glyphicon glyphicon-tasks"></span> Tasks</a></li>
+        <li><a href="/parameters/{{user.id}}"><span class = "glyphicon glyphicon-list" ></span> Parameters</a></li> 
+        <li><a href="/schedule/{{user.id}}"><span class="glyphicon glyphicon-time"></span> Schedule</a></li>
+        <li><a href="/user/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+        {% else %}
+        <li><a href="/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="/user/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        {% endif %}
+        <!-- <li><a href="/about"><span class="glyphicon glyphicon-globe"></span> About</a></li> -->
+      </ul>
+    </div>
+    
+  </div>
+</nav>
+
+
+<!-- <ul class = "unordered">
+  <li class= "item"><a class="active" href="/">Home</a></li>
+  {% if user.is_authenticated %}
+   <li class="right"><a href="/user/logout">Logout</a></li>
+   <li class="right"><a href="/user/{{user.id}}">{{user}}</a></li>
+   <li class="right"><a href="/user/{{user.id}}/status">Status</a></li>
+  {% else %}
+   <li class="right"><a href="/user/login">Login</a></li>
+   <li class="right"><a href="/user/signup">SignUp</a></li>
+  {% endif %}
+   <li class="right"><a href="/about">About</a></li>
+
+</ul> -->
+
+</div>
+
+{% block content %}
+{% endblock %}
+
+<!-- <script type="text/javascript" src="js/materialize.min.js"></script> -->
+</body>
+</html>
