@@ -146,8 +146,18 @@ efficiency
 /slot/<user_id> - GET and POST
 /parameters/<user_id> - GET and POST
 /schedule/<user_id>/<slot_id>/<parameter_id>/<list_process> - GET and POST
+/schedule/<user_id>/ - GET and POST 
 
 
 
+making the new model for building and maintaining the schedule of a person 
 
-make an entry in the efficiency table at the time of user registration 
+schedule
+
+id
+user_id 
+slot_id 
+parameter_id
+list_process
+
+

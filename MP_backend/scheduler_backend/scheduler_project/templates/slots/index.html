@@ -2,7 +2,11 @@
 {% load crispy_forms_tags %}
 
 {% block content%}
-<h5 class = 'center-align green lighten-4'><font color=black>
+<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+</style>
+
+<h5 class = 'collection'><font color=#282938>
 {{title}}
 </font>
 </h5>
@@ -23,8 +27,21 @@
 <div class = "card" style = 'margin-left: 200px; margin-bottom: 50px; margin-right: 200px; padding-left: 20px; padding-right: 20px; padding-top: 40px; padding-bottom: 50px'>
 <form method="post" style = 'margin-left: 30px; margin-right: 30px'>
 {% csrf_token %}
-{{ slots_form | crispy}}
+<!-- {{ slots_form | crispy}} -->
+{% include 'includes/bs4_form.html' with form=slots_form %}
+<!-- {{ slots_form1 | crispy}} -->
+{% include 'includes/bs4_form.html' with form=slots_form1%}
 <button type="submit" class="btn btn-success">Add Slots</button>
 </form>
 </div>
+<div class="button-holder" style="text-align: center; margin-bottom: 10px">
+      <!-- <a class="button" style="background-color: grey;">Switch Theme</a> -->
+      <a class="button1" style="background-color: grey;">Next - Add Parameters!</a>
+</div>
+
+<script type="text/javascript">
+  $('a.button1').click(function(){
+        window.location.href = "/parameters/".concat({{user_id}});
+    });
+</script>
 {% endblock %}

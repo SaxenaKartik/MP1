@@ -1,0 +1,40 @@
+api/user/ - result.Users GET
+api/user/login/ - token POST body : username,password
+api/user/signup/ - POST body : username,password,first_name,last_name,email
+api/user/user_id/ - result.User GET
+api/process/process_id/ - result.Process GET
+
+
+api/process/ - result.Processes GET POST
+body : 
+user_id | 1
+capacity | 0
+period | 24
+arrival_time | 0
+deadline | 24
+type_work | 'work'
+optional | 0
+start_time_flag | 0
+start_timing | 
+
+
+
+api/efficiency/user_id/ - result.Efficiency GET POST 
+body : daily_efficiency | 0
+weekly_efficiency | 0
+total_efficiency | 0
+day | datetime.datetime.today().weekday()
+week | datetime.datetime.today().isocalendar()[1]
+total_days | efficiency.day+1
+total_weeks | efficiency.day//7
+tasks_attempted | 0
+tasks_completed | 0
+
+
+
+api/slots/user_id/ - result.Slots GET POST
+body : slots_list | {"Slots" : "None"}
+
+api/parameters/user_id/ - result.Parameters GET POST
+body : parameter_list | {"Parameters" : "None"}
+

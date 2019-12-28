@@ -1,0 +1,208 @@
+{%extends 'general/layout.html' %}
+{% block content %}
+
+<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+</style>
+
+<h5 class = 'collection'><font color=#282938>
+  {{title0}}
+</font>
+</h5>
+
+<div class = "card">
+  
+  <div class = "card-content">
+    <b>Schedule Id</b> : {{schedule.id}}
+  </div>
+  <div class = "card-content">
+    <b>User Id</b> : {{schedule.user_id}}
+  </div>
+
+
+<form method = "post">
+  <div class = "card-content">
+    <b>Process List</b> : 
+
+    <ul class = 'collection' style = 'background-color: transparent;'>
+  {% for process in list_process %}
+  <!-- <li class = 'item'>Coffee</li> -->
+  <!-- <li class = 'item'>Tea</li> -->
+  <!-- <li class = 'item'>Coca Cola</li> -->
+  <!-- <li class = 'collection-item' style = 'padding :10px 10px;'><a href = "user/details/{{user.id}}">{{user}}</a></li> -->
+  <!-- <script type="text/javascript">
+    console.log("{{profile}}")
+  </script> -->
+  
+  <a style='text-decoration: none;color:black; background-color: transparent;' href="/process/{{user_id}}/{{process.process_id}}" class="collection-item">
+  <label>
+    <input type="checkbox" value ="{{process.process_id}}" name = "task"  id = "{{process.process_id}}" style="z-index: 2" />
+    <span style="color: black; font-family: 'Poppins', sans-serif; font-weight: normal"> {{process.name}} </span>
+
+  </label>
+  </a>
+    {% endfor %}
+</ul>
+<button type="submit" class="btn btn-success" name = "update_schedule">Update Schedule!</button>
+</form>
+
+  </div>
+  <div class = "card-content">
+    <b>Slot Id</b> : {{schedule.slot_id.id}}
+  </div>
+  <div class = "card-content">
+    <b>Parameter Id</b> : {{schedule.parameter_id.id}}
+  </div>
+  <div class = "card-content">
+    <b>Efficiency Id</b> : {{schedule.efficiency_id.id}}
+  </div>
+
+  <div class = "card-content">
+    <b>Algorithm</b> : {{schedule.algo}}
+  </div>
+  <div class = "card-content">
+    <b>Schedule</b> : {{schedule.schedule}}
+  </div>
+
+  <div class = "card-content">
+    <b>Day</b> : {{schedule.day}}
+  </div>
+
+  <div class = "card-content">
+    <b>Week</b> : {{schedule.week}}
+  </div>
+</div>
+
+
+<br>
+<br>
+
+<h5 class = 'collection'><font color=#282938>
+{{title1}}
+</font>
+</h5>
+
+
+<form method="post">
+	
+<ul class = 'collection' style = 'background-color: transparent;'>
+	{% for process in processes %}
+  <!-- <li class = 'item'>Coffee</li> -->
+  <!-- <li class = 'item'>Tea</li> -->
+  <!-- <li class = 'item'>Coca Cola</li> -->
+  <!-- <li class = 'collection-item' style = 'padding :10px 10px;'><a href = "user/details/{{user.id}}">{{user}}</a></li> -->
+  <!-- <script type="text/javascript">
+  	console.log("{{profile}}")
+  </script> -->
+  
+  <a style='text-decoration: none;color:black; background-color: transparent;' href="/process/{{user_id}}/{{process.id}}" class="collection-item">
+  <label>
+    <input type="checkbox" value ="{{process.id}}" name = "task"  id = "{{process.id}}" style="z-index: 2" />
+    <span style="color: black; font-family: 'Poppins', sans-serif; font-weight: normal"> {{process.name}} </span>
+
+  </label>
+
+  </a>
+  	{% endfor %}
+</ul>
+
+<span class="button-holder" style="text-align: left; margin-bottom: 10px;margin-left: 10px">
+      <!-- <a class="button" style="background-color: grey;">Switch Theme</a> -->
+      <!-- <a  class="button1" style="background-color: grey;">Make Schedule!</a> -->
+      <button type="submit" class="btn btn-success" name = "make_schedule">Make Schedule!</button>
+      <button type="submit" class="btn btn-success" name = "add_to_schedule">Add Task!</button>
+</span>
+
+<span class="button-holder" style="text-align: left; margin-bottom: 10px; margin-left: 10px">
+      <!-- <a class="button" style="background-color: grey;">Switch Theme</a> -->
+      <a onclick="processfunction()" class="button1" style="background-color: grey;">Update process</a>
+</span>
+</form>
+
+
+<!-- <script type="text/javascript">
+  $('a.button1').click(function(){
+        window.location.href = "/slots/".concat({{user_id}});
+    });
+</script> -->
+<script type="text/javascript">
+	function processfunction() {
+        window.location.href = "/process/{{user_id}}";
+    }
+</script>
+
+<br>
+
+<h5 class = 'collection'><font color=#282938>
+{{title2}}
+</font>
+</h5>
+<div class = "card">
+	
+	<div class = "card-content">
+		<b>Slot Id</b> : {{slots.id}}
+	</div>
+	<div class = "card-content">
+		<b>User Id</b> : {{slots.user_id}}
+	</div>
+
+	<div class = "card-content">
+		<b>Slots</b> : {{slots.slot_list}}
+	</div>
+</div>
+
+<div class="button-holder" style="text-align: left; margin-bottom: 10px; margin-left: 10px">
+      <!-- <a class="button" style="background-color: grey;">Switch Theme</a> -->
+      <a onclick="slotsfunction()" class="button1" style="background-color: grey;">Update slots</a>
+</div>
+
+<!-- <script type="text/javascript">
+  $('a.button1').click(function(){
+        window.location.href = "/slots/".concat({{user_id}});
+    });
+</script> -->
+<script type="text/javascript">
+	function slotsfunction() {
+        window.location.href = "/slots/".concat({{user_id}});
+    }
+</script>
+
+<br>
+
+<h5 class = 'collection'><font color=#282938>
+{{title3}}
+</font>
+</h5>
+<div class = "card">
+	
+	<div class = "card-content">
+		<b>Parameter Id</b> : {{parameters.id}}
+	</div>
+	<div class = "card-content">
+		<b>User Id</b> : {{parameters.user_id}}
+	</div>
+
+	<div class = "card-content">
+		<b>Parameters</b> : {{parameters.parameter_list}}
+	</div>
+</div>
+
+<div class="button-holder" style="text-align: left; margin-bottom: 10px; margin-left: 10px">
+      <!-- <a class="button" style="background-color: grey;">Switch Theme</a> -->
+      <a onclick="parametersfunction()" class="button1" style="background-color: grey;">Update parameters</a>
+</div>
+
+<script type="text/javascript">
+	function parametersfunction() {
+        window.location.href = "/parameters/".concat({{user_id}});
+    }
+</script>
+
+<br>
+<!-- <script type="text/javascript">
+  $('a.button1').click(function(){
+        window.location.href = "/parameters/".concat({{user_id}});
+    });
+</script> -->
+
+{% endblock %}

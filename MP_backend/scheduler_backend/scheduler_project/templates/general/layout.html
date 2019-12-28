@@ -8,34 +8,182 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <title>Home</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <title>Your Scheduler</title>
   <style>
+
+.button1-holder{
+  text-align:center;
+  padding-bottom:80px;
+}
+
+#style-2::-webkit-scrollbar-track
+{
+  /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+  border-radius: 10px;
+  background-color: grey;
+}
+
+#style-2::-webkit-scrollbar
+{
+  width: 5px;
+  background-color: #272C38;
+}
+
+#style-2::-webkit-scrollbar-thumb
+{
+  border-radius: 4px;
+  /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);*/
+  background-color: #272C38 ;
+}
+
+
+a.button1{
+  background-color:#272C38;
+  
+  background-image:-webkit-linear-gradient(top, #272C38, #272C38);
+  background-image:-moz-linear-gradient(top, #272C38, #272C38);
+  background-image:linear-gradient(top, #272C38, #272C38);
+
+  border:1px solid #272C38;
+  border-radius:2px;
+
+  /*box-shadow:0 2px 2px #ccc;*/
+
+  color:#fff;
+  text-decoration: none !important;
+  padding:15px 20px;
+  display:inline-block;
+  cursor:pointer;
+}
+
+a.button1:hover{
+  opacity:0.9;
+}
+
+.btn1 {
+  background-color: transparent;
+  border: none; /* Remove borders */
+  color: #111111 ; /* White text */
+  padding: 2px 2px; /* Some padding */
+  font-size: 10px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+}
+
+.btn1:hover{
+  background-color:transparent;
+  color: #272e38;
+  opacity: 0.9;
+}
+
+.btn1:focus{
+  background-color:transparent;
+}
+
+#sidenav a{
+  z-index: 2;
+  text-decoration:none;
+  font-size:15px;
+  color:#272C38;
+  position:absolute;
+  border-radius:0 5px 5px 0px;
+  right:0px;
+  transition:0.3s;
+  border:0px solid #c2e9fb;
+  
+  width:105px;
+  margin-right: :10px;
+  overflow-x: hidden;
+}
+i{
+padding-right:5px;
+ padding-left:0px;
+ overflow-x: hidden;
+
+}
+#sidenav a:hover{
+ right:0px; 
+ text-align:center;
+ cursor: pointer;
+ overflow-x: hidden;
+}
+#sidenav a:hover i{
+display:absolute;
+ cursor: pointer;
+
+overflow-x: hidden;
+}
+
+.container
+{
+  text-align: right;
+  margin-right: 0px;
+  overflow-x: hidden;
+}
+
   body
   {
-    background_repeat : no-repeat;
+  /*background: linear-gradient(45deg, #FFD8FF 0, #A8FFFF 100%);*/
+    /*background-color: #DAE4E6;*/
+    /*background-color: #000000;*/
+    /*background : "om.jpg";*/
+  /*background: linear-gradient(45deg, #FFD8FF 0, #A8FFFF 100%);*/
+    background: linear-gradient(45deg, #F3904F 0, #3B4371 100%);
+    
+    background-repeat : no-repeat;
     background-attachment : fixed;
-    background-size:100%
+    background-size:100%;
   }
 
-  </style>
+  /*.layer
+  {
+    z-index: 2;
+    background: url('../img/mountains.png')
+    position: absolute;
+    width: 100%;
+    height: 100%;rr
+  }
+*/
+
+
+
+ @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+  .card
+  {
+  /*background: linear-gradient(45deg, #1870ed 0, #f18f88 100%);*/
+    background-color: transparent;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .collection
+  {
+    background-color:transparent;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    /*opacity: 0.6;*/
+  }
+
+  .collection-item
+  {
+    background-color: transparent;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .collection-item:hover
+  {
+    opacity: 0.5;
+  }
+
+ </style>
+
 
 </head>
-<body>
+<body id = "style-2" >
+
 <div>
-
-<h3 align = center>
-
-<a href="/" style = "text-decoration: none">
-<font color=black face = "Cooper">
-Your
-</font>
-<font color=green face = "Cooper">
-Scheduler
-</font>
-</h3>
-</a>
-<!-- <hr width = 50% color="black"> -->
-
 <nav style = "height: 53px" class="navbar navbar-inverse ">
   <div  class="container-fluid">
     <div  class="navbar-header">
@@ -49,12 +197,14 @@ Scheduler
         </div> -->
     <a style = "position: relative; z-index: 2" class = "navbar-brand" href="/">
      <span class="glyphicon glyphicon-home">
-     </span> YourScheduler
+     </span> Your
+       Scheduler
     </a>
         
     </div>
     <div style = "position: absolute; z-index: 1;  width: 100%; background: #101010; margin-left: -16px; margin-right: -16px;"  class="collapse navbar-collapse"id="myNavbar" >
     <div>  
+
     </div>
       <!-- <ul class="nav navbar-nav">
         <li><a href="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
@@ -64,8 +214,8 @@ Scheduler
         {% if user.is_authenticated %}
         <li><a href="/user/{{user.id}}"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
         <li><a href="/efficiency/{{user.id}}"><span class="glyphicon glyphicon-heart"></span> Efficiency</a></li>
+        <li><a href="/process/{{user.id}}"><span class="glyphicon glyphicon-tasks"></span> Tasks</a></li>
         <li><a href="/slots/{{user.id}}"><span class = "glyphicon glyphicon-calendar" ></span> Slots</a></li>
-        <li><a href="/process"><span class="glyphicon glyphicon-tasks"></span> Tasks</a></li>
         <li><a href="/parameters/{{user.id}}"><span class = "glyphicon glyphicon-list" ></span> Parameters</a></li> 
         <li><a href="/schedule/{{user.id}}"><span class="glyphicon glyphicon-time"></span> Schedule</a></li>
         <li><a href="/user/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
@@ -79,6 +229,78 @@ Scheduler
     
   </div>
 </nav>
+
+<h3 align = center>
+
+<a href="/" style = "text-decoration: none">  
+
+<!-- <font color=white face = "Poppins" style="text-shadow: 1px 1px 2px black, 0 0 10px , 0 0 5px black;"> -->
+<!-- </font> -->
+<!-- <font color=#00FF25 face = "Poppins" style="text-shadow: 1px 1px 2px black, 0 0 10px , 0 0 5px black;"> -->
+<!-- </font> -->
+</a>
+</h3>
+<div class="container">
+<div class="side-menu" id="sidenav">
+  <!-- <a style="overflow-x: hidden;" onclick="toggleFullscreen()" id="contact">Toggle<i class="fa fa-info-circle" aria-hidden="true"></i></a> -->
+  <!-- <input type = "button" onclick="toggleFullscreen()"></input> -->
+<!-- <form method="get" action="/fullscreen">
+  <button type="submit" class="btn1"><i class="material-icons" style="font-size:30px">fullscreen</i></button>
+</form> -->
+
+</div><!-- closing of sidemenu-->
+</div><!-- container-->
+
+<!-- <script type="text/javascript">
+/* View in fullscreen */
+function toggleFullscreen(elem) {
+  elem = elem || document.documentElement;
+  if (!document.fullscreenElement && !document.mozFullScreenElement &&
+    !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    }
+  }
+   else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+}
+
+
+function simulateKey (keyCode, type, modifiers) {
+  var evtName = (typeof(type) === "string") ? "key" + type : "keydown"; 
+  var modifier = (typeof(modifiers) === "object") ? modifier : {};
+
+  var event = document.createEvent("HTMLEvents");
+  event.initEvent(evtName, true, false);
+  event.keyCode = keyCode;
+  
+  for (var i in modifiers) {
+    event[i] = modifiers[i];
+  }
+
+  document.dispatchEvent(event);
+}
+
+
+</script> -->
+
+
+<!-- <hr width = 50% color="black"> -->
 
 
 <!-- <ul class = "unordered">
@@ -94,8 +316,6 @@ Scheduler
    <li class="right"><a href="/about">About</a></li>
 
 </ul> -->
-
-</div>
 
 {% block content %}
 {% endblock %}

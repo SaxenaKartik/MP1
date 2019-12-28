@@ -1,0 +1,372 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Forms &#8212; scheduler_backend 1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Models" href="models.html" />
+    <link rel="prev" title="All about me" href="all-about-me.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-scheduler_project.forms">
+<span id="forms"></span><h1>Forms<a class="headerlink" href="#module-scheduler_project.forms" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="scheduler_project.forms.EfficiencyForm">
+<em class="property">class </em><code class="sig-prename descclassname">scheduler_project.forms.</code><code class="sig-name descname">EfficiencyForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.EfficiencyForm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="class">
+<dt id="scheduler_project.forms.EfficiencyForm.Meta">
+<em class="property">class </em><code class="sig-name descname">Meta</code><a class="headerlink" href="#scheduler_project.forms.EfficiencyForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="scheduler_project.forms.EfficiencyForm.Meta.fields">
+<code class="sig-name descname">fields</code><em class="property"> = ('user_id', 'daily_efficiency', 'weekly_efficiency', 'total_efficiency', 'day', 'week', 'total_days', 'total_weeks', 'tasks_attempted', 'tasks_completed')</em><a class="headerlink" href="#scheduler_project.forms.EfficiencyForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.EfficiencyForm.Meta.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#scheduler_project.forms.EfficiencyForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#scheduler_project.models.Efficiency" title="scheduler_project.models.Efficiency"><code class="xref py py-class docutils literal notranslate"><span class="pre">scheduler_project.models.Efficiency</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.EfficiencyForm.base_fields">
+<code class="sig-name descname">base_fields</code><em class="property"> = {'daily_efficiency': &lt;django.forms.fields.IntegerField object&gt;, 'day': &lt;django.forms.fields.IntegerField object&gt;, 'tasks_attempted': &lt;django.forms.fields.IntegerField object&gt;, 'tasks_completed': &lt;django.forms.fields.IntegerField object&gt;, 'total_days': &lt;django.forms.fields.IntegerField object&gt;, 'total_efficiency': &lt;django.forms.fields.IntegerField object&gt;, 'total_weeks': &lt;django.forms.fields.IntegerField object&gt;, 'user_id': &lt;django.forms.models.ModelChoiceField object&gt;, 'week': &lt;django.forms.fields.IntegerField object&gt;, 'weekly_efficiency': &lt;django.forms.fields.IntegerField object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.EfficiencyForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.EfficiencyForm.declared_fields">
+<code class="sig-name descname">declared_fields</code><em class="property"> = {}</em><a class="headerlink" href="#scheduler_project.forms.EfficiencyForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scheduler_project.forms.EfficiencyForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#scheduler_project.forms.EfficiencyForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scheduler_project.forms.LoginForm">
+<em class="property">class </em><code class="sig-prename descclassname">scheduler_project.forms.</code><code class="sig-name descname">LoginForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.LoginForm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="class">
+<dt id="scheduler_project.forms.LoginForm.Meta">
+<em class="property">class </em><code class="sig-name descname">Meta</code><a class="headerlink" href="#scheduler_project.forms.LoginForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="scheduler_project.forms.LoginForm.Meta.fields">
+<code class="sig-name descname">fields</code><em class="property"> = ('username', 'password')</em><a class="headerlink" href="#scheduler_project.forms.LoginForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.LoginForm.Meta.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#scheduler_project.forms.LoginForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.LoginForm.base_fields">
+<code class="sig-name descname">base_fields</code><em class="property"> = {'password': &lt;django.forms.fields.CharField object&gt;, 'username': &lt;django.forms.fields.CharField object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.LoginForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.LoginForm.declared_fields">
+<code class="sig-name descname">declared_fields</code><em class="property"> = {}</em><a class="headerlink" href="#scheduler_project.forms.LoginForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scheduler_project.forms.LoginForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#scheduler_project.forms.LoginForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scheduler_project.forms.ParametersForm">
+<em class="property">class </em><code class="sig-prename descclassname">scheduler_project.forms.</code><code class="sig-name descname">ParametersForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.ParametersForm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="class">
+<dt id="scheduler_project.forms.ParametersForm.Meta">
+<em class="property">class </em><code class="sig-name descname">Meta</code><a class="headerlink" href="#scheduler_project.forms.ParametersForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="scheduler_project.forms.ParametersForm.Meta.fields">
+<code class="sig-name descname">fields</code><em class="property"> = ('user_id', 'parameter_list')</em><a class="headerlink" href="#scheduler_project.forms.ParametersForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.ParametersForm.Meta.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#scheduler_project.forms.ParametersForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#scheduler_project.models.Parameters" title="scheduler_project.models.Parameters"><code class="xref py py-class docutils literal notranslate"><span class="pre">scheduler_project.models.Parameters</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.ParametersForm.base_fields">
+<code class="sig-name descname">base_fields</code><em class="property"> = {'parameter_list': &lt;django.forms.fields.CharField object&gt;, 'user_id': &lt;django.forms.models.ModelChoiceField object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.ParametersForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.ParametersForm.declared_fields">
+<code class="sig-name descname">declared_fields</code><em class="property"> = {}</em><a class="headerlink" href="#scheduler_project.forms.ParametersForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scheduler_project.forms.ParametersForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#scheduler_project.forms.ParametersForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scheduler_project.forms.ProcessForm">
+<em class="property">class </em><code class="sig-prename descclassname">scheduler_project.forms.</code><code class="sig-name descname">ProcessForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.ProcessForm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="class">
+<dt id="scheduler_project.forms.ProcessForm.Meta">
+<em class="property">class </em><code class="sig-name descname">Meta</code><a class="headerlink" href="#scheduler_project.forms.ProcessForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="scheduler_project.forms.ProcessForm.Meta.fields">
+<code class="sig-name descname">fields</code><em class="property"> = ('user_id', 'name', 'capacity', 'period', 'arrival_time', 'deadline', 'type_work', 'optional', 'start_time_flag', 'start_timing')</em><a class="headerlink" href="#scheduler_project.forms.ProcessForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.ProcessForm.Meta.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#scheduler_project.forms.ProcessForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#scheduler_project.models.Process" title="scheduler_project.models.Process"><code class="xref py py-class docutils literal notranslate"><span class="pre">scheduler_project.models.Process</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.ProcessForm.base_fields">
+<code class="sig-name descname">base_fields</code><em class="property"> = {'arrival_time': &lt;django.forms.fields.IntegerField object&gt;, 'capacity': &lt;django.forms.fields.IntegerField object&gt;, 'deadline': &lt;django.forms.fields.IntegerField object&gt;, 'name': &lt;django.forms.fields.CharField object&gt;, 'optional': &lt;django.forms.fields.BooleanField object&gt;, 'period': &lt;django.forms.fields.IntegerField object&gt;, 'start_time_flag': &lt;django.forms.fields.BooleanField object&gt;, 'start_timing': &lt;django.forms.fields.TimeField object&gt;, 'type_work': &lt;django.forms.fields.CharField object&gt;, 'user_id': &lt;django.forms.models.ModelChoiceField object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.ProcessForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.ProcessForm.declared_fields">
+<code class="sig-name descname">declared_fields</code><em class="property"> = {}</em><a class="headerlink" href="#scheduler_project.forms.ProcessForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scheduler_project.forms.ProcessForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#scheduler_project.forms.ProcessForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scheduler_project.forms.SignupForm">
+<em class="property">class </em><code class="sig-prename descclassname">scheduler_project.forms.</code><code class="sig-name descname">SignupForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.SignupForm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="class">
+<dt id="scheduler_project.forms.SignupForm.Meta">
+<em class="property">class </em><code class="sig-name descname">Meta</code><a class="headerlink" href="#scheduler_project.forms.SignupForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="scheduler_project.forms.SignupForm.Meta.fields">
+<code class="sig-name descname">fields</code><em class="property"> = ('username', 'password', 'first_name', 'last_name', 'email')</em><a class="headerlink" href="#scheduler_project.forms.SignupForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SignupForm.Meta.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#scheduler_project.forms.SignupForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SignupForm.Meta.widgets">
+<code class="sig-name descname">widgets</code><em class="property"> = {'password': &lt;django.forms.widgets.PasswordInput object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.SignupForm.Meta.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SignupForm.base_fields">
+<code class="sig-name descname">base_fields</code><em class="property"> = {'email': &lt;django.forms.fields.EmailField object&gt;, 'first_name': &lt;django.forms.fields.CharField object&gt;, 'last_name': &lt;django.forms.fields.CharField object&gt;, 'password': &lt;django.forms.fields.CharField object&gt;, 'username': &lt;django.forms.fields.CharField object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.SignupForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SignupForm.declared_fields">
+<code class="sig-name descname">declared_fields</code><em class="property"> = {}</em><a class="headerlink" href="#scheduler_project.forms.SignupForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scheduler_project.forms.SignupForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#scheduler_project.forms.SignupForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scheduler_project.forms.SlotsForm">
+<em class="property">class </em><code class="sig-prename descclassname">scheduler_project.forms.</code><code class="sig-name descname">SlotsForm</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">instance=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.SlotsForm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="class">
+<dt id="scheduler_project.forms.SlotsForm.Meta">
+<em class="property">class </em><code class="sig-name descname">Meta</code><a class="headerlink" href="#scheduler_project.forms.SlotsForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="scheduler_project.forms.SlotsForm.Meta.clean">
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.SlotsForm.Meta.clean" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SlotsForm.Meta.fields">
+<code class="sig-name descname">fields</code><em class="property"> = ('user_id', 'slot_list')</em><a class="headerlink" href="#scheduler_project.forms.SlotsForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SlotsForm.Meta.model">
+<code class="sig-name descname">model</code><a class="headerlink" href="#scheduler_project.forms.SlotsForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#scheduler_project.models.Slots" title="scheduler_project.models.Slots"><code class="xref py py-class docutils literal notranslate"><span class="pre">scheduler_project.models.Slots</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SlotsForm.Meta.widgets">
+<code class="sig-name descname">widgets</code><em class="property"> = {'slot_list': &lt;django.forms.widgets.HiddenInput object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.SlotsForm.Meta.widgets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SlotsForm.base_fields">
+<code class="sig-name descname">base_fields</code><em class="property"> = {'slot_list': &lt;django.forms.fields.CharField object&gt;, 'user_id': &lt;django.forms.models.ModelChoiceField object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.SlotsForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SlotsForm.declared_fields">
+<code class="sig-name descname">declared_fields</code><em class="property"> = {}</em><a class="headerlink" href="#scheduler_project.forms.SlotsForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scheduler_project.forms.SlotsForm.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#scheduler_project.forms.SlotsForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="scheduler_project.forms.SlotsForm1">
+<em class="property">class </em><code class="sig-prename descclassname">scheduler_project.forms.</code><code class="sig-name descname">SlotsForm1</code><span class="sig-paren">(</span><em class="sig-param">data=None</em>, <em class="sig-param">files=None</em>, <em class="sig-param">auto_id='id_%s'</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">initial=None</em>, <em class="sig-param">error_class=&lt;class 'django.forms.utils.ErrorList'&gt;</em>, <em class="sig-param">label_suffix=None</em>, <em class="sig-param">empty_permitted=False</em>, <em class="sig-param">field_order=None</em>, <em class="sig-param">use_required_attribute=None</em>, <em class="sig-param">renderer=None</em><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.SlotsForm1" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="scheduler_project.forms.SlotsForm1.base_fields">
+<code class="sig-name descname">base_fields</code><em class="property"> = {'Friday': &lt;django.forms.fields.CharField object&gt;, 'Monday': &lt;django.forms.fields.CharField object&gt;, 'Saturday': &lt;django.forms.fields.CharField object&gt;, 'Sunday': &lt;django.forms.fields.CharField object&gt;, 'Thursday': &lt;django.forms.fields.CharField object&gt;, 'Tuesday': &lt;django.forms.fields.CharField object&gt;, 'Wednesday': &lt;django.forms.fields.CharField object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.SlotsForm1.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scheduler_project.forms.SlotsForm1.clean">
+<code class="sig-name descname">clean</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#scheduler_project.forms.SlotsForm1.clean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hook for doing any extra form-wide cleaning after Field.clean() has been
+called on every field. Any ValidationError raised by this method will
+not be associated with a particular field; it will have a special-case
+association with the field named ‘__all__’.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="scheduler_project.forms.SlotsForm1.declared_fields">
+<code class="sig-name descname">declared_fields</code><em class="property"> = {'Friday': &lt;django.forms.fields.CharField object&gt;, 'Monday': &lt;django.forms.fields.CharField object&gt;, 'Saturday': &lt;django.forms.fields.CharField object&gt;, 'Sunday': &lt;django.forms.fields.CharField object&gt;, 'Thursday': &lt;django.forms.fields.CharField object&gt;, 'Tuesday': &lt;django.forms.fields.CharField object&gt;, 'Wednesday': &lt;django.forms.fields.CharField object&gt;}</em><a class="headerlink" href="#scheduler_project.forms.SlotsForm1.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="scheduler_project.forms.SlotsForm1.media">
+<em class="property">property </em><code class="sig-name descname">media</code><a class="headerlink" href="#scheduler_project.forms.SlotsForm1.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">scheduler_backend</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="all-about-me.html">All about me</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Forms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="urls.html">Urls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="all-about-me.html" title="previous chapter">All about me</a></li>
+      <li>Next: <a href="models.html" title="next chapter">Models</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Kartik Saxena.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/modules/forms.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

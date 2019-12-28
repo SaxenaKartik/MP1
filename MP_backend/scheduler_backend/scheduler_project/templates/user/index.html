@@ -2,12 +2,15 @@
 {%extends 'general/layout.html' %}
 
 {% block content%}
-<h5 class = 'center-align green lighten-4'><font color=black>
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+</style>
+<h5 class = 'collection'><font color=black>
 {{title}}
 </font>
 </h5>
 
-<ul class = 'collection' style = 'background-color: #fff'>
+<ul class = 'collection' style = 'background-color: transparent;'>
 	{% for user in users %}
   <!-- <li class = 'item'>Coffee</li> -->
   <!-- <li class = 'item'>Tea</li> -->
@@ -17,7 +20,7 @@
   	console.log("{{user}}")
   </script> -->
   
-  <a style='text-decoration: none;color:darkgreen' href="{{user.id}}" class="collection-item">{{user}}</a>
+  <a style='text-decoration: none;color:black; background-color: transparent;' href="{{user.id}}" class="collection-item">{{user}}</a>
   	{% endfor %}
 </ul>
 

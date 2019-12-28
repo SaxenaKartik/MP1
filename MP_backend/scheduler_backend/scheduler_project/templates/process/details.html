@@ -2,6 +2,10 @@
 
 {% block content%}
 
+<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
+</style>
+
 <script type="text/javascript">
 	// console.log("{{profile}}")
 </script>
@@ -9,6 +13,9 @@
 <div class = "card">
 	<div class = "card-content">
 		<b>Process Id</b> : {{process.id}}
+	</div>
+	<div class = "card-content">
+		<b>Process name</b> : {{process.name}}
 	</div>
 	<div class = "card-content">
 		<b>User Id</b> : {{process.user_id.id}}

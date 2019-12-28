@@ -1,0 +1,31 @@
+{"statistics": "[]","deadline_flag": "False","fragmented_flag": "False","fragmented_range": "0","optional_task_flag": "False","optional_task_list": "[]","user_priority_flag": "False","user_priority_list": "[]","user_preference_flag": "False","user_preference_list": "{}"}
+
+
+
+{"1": "[1, 1, 2, 1, 3]","2": "[.5, 1, 2.5, 1.5, 2]","3": "[1.5, 1.5, 1.5, 1.5]","4": "[2, 3, 1]","5": "[1, 1]","6": "[6]","7": "[7]"}	
+
+
+username,password,first_name,last_name,email
+
+
+
+user_id | 1
+capacity | 0
+period | 24
+arrival_time | 0
+deadline | 24
+type_work | 'work'
+optional | 0
+start_time_flag | 0
+start_timing | 
+
+
+daily_efficiency | 0
+weekly_efficiency | 0
+total_efficiency | 0
+day | datetime.datetime.today().weekday()
+week | datetime.datetime.today().isocalendar()[1]
+total_days | efficiency.day+1
+total_weeks | efficiency.day//7
+tasks_attempted | 0
+tasks_completed | 0
